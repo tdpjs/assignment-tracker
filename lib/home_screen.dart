@@ -124,6 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
             .from('Assignments')
             .delete()
             .eq('id', data['id']);
+
         _fetchUserData();
         Navigator.of(context).pop();
       } catch (error) {
@@ -132,6 +133,207 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // void _showAddAssignmentDialog() {
+  //   courseController.clear();
+  //   nameController.clear();
+  //   typeController.clear();
+  //   dueDateController.clear();
+  //   dueTimeController.clear();
+  //   submissionController.clear();
+  //   resourcesController.clear();
+  //
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         shape: const Border(
+  //           top: BorderSide(color: Color(0xFFDFDFDF)),
+  //           left: BorderSide(color: Color(0xFFDFDFDF)),
+  //           right: BorderSide(color: Color(0xFF7F7F7F)),
+  //           bottom: BorderSide(color: Color(0xFF7F7F7F)),
+  //         ),
+  //         title: const Text('Add Assignment'),
+  //         content: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             TextField(
+  //               controller: courseController,
+  //               decoration: const InputDecoration(labelText: 'Course'),
+  //             ),
+  //             TextField(
+  //               controller: nameController,
+  //               decoration: const InputDecoration(labelText: 'Name'),
+  //             ),
+  //             TextField(
+  //               controller: typeController,
+  //               decoration: const InputDecoration(labelText: 'Type'),
+  //             ),
+  //             TextField(
+  //               controller: dueDateController,
+  //               decoration: const InputDecoration(
+  //                 labelText: 'Due Date',
+  //                 hintText: 'e.g. YYYY-MM-DD',
+  //               ),
+  //               onTap: () async {
+  //                 FocusScope.of(context).requestFocus(FocusNode());
+  //                 DateTime? pickedDate = await showDatePicker(
+  //                   context: context,
+  //                   initialDate: DateTime.now(),
+  //                   firstDate: DateTime(2000),
+  //                   lastDate: DateTime(2101),
+  //                 );
+  //                 if (pickedDate != null) {
+  //                   dueDateController.text =
+  //                       pickedDate
+  //                           .toIso8601String()
+  //                           .split('T')
+  //                           .first;
+  //                 }
+  //               },
+  //             ),
+  //             TextField(
+  //               controller: dueTimeController,
+  //               decoration: const InputDecoration(
+  //                 labelText: 'Due Time',
+  //                 hintText: 'HH:MM TZ',
+  //               ),
+  //               keyboardType: TextInputType.datetime,
+  //             ),
+  //             TextField(
+  //               controller: submissionController,
+  //               decoration: const InputDecoration(
+  //                 labelText: 'Submission URL',
+  //                 hintText: 'Enter submission URL',
+  //               ),
+  //               keyboardType: TextInputType.url,
+  //             ),
+  //             TextField(
+  //               controller: resourcesController,
+  //               decoration: const InputDecoration(
+  //                 labelText: 'Resources (comma-separated links)',
+  //                 hintText: 'Enter resource links',
+  //               ),
+  //               maxLines: null,
+  //             ),
+  //           ],
+  //         ),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () => Navigator.of(context).pop(),
+  //             child: const Text('Cancel'),
+  //           ),
+  //           ElevatedButton(
+  //             onPressed: _addAssignment,
+  //             child: const Text('Add Assignment'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+  //
+  // void _showEditAssignmentDialog(Map<String, dynamic> data) {
+  //   courseController.text = data['Course'] ?? '';
+  //   nameController.text = data['Name'] ?? '';
+  //   typeController.text = data['Type'] ?? '';
+  //   dueDateController.text = data['Due Date'] ?? '';
+  //   dueTimeController.text = data['Due Time'] ?? '';
+  //   submissionController.text = data['Submission'] ?? '';
+  //   resourcesController.text = data['Resources']?.join(', ') ?? '';
+  //
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         shape: const Border(
+  //           top: BorderSide(color: Color(0xFFDFDFDF)),
+  //           left: BorderSide(color: Color(0xFFDFDFDF)),
+  //           right: BorderSide(color: Color(0xFF7F7F7F)),
+  //           bottom: BorderSide(color: Color(0xFF7F7F7F)),
+  //         ),
+  //         title: const Text('Edit Assignment'),
+  //         content: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             TextField(
+  //               controller: courseController,
+  //               decoration: const InputDecoration(labelText: 'Course'),
+  //             ),
+  //             TextField(
+  //               controller: nameController,
+  //               decoration: const InputDecoration(labelText: 'Name'),
+  //             ),
+  //             TextField(
+  //               controller: typeController,
+  //               decoration: const InputDecoration(labelText: 'Type'),
+  //             ),
+  //             TextField(
+  //               controller: dueDateController,
+  //               decoration: const InputDecoration(
+  //                 labelText: 'Due Date',
+  //                 hintText: 'e.g. YYYY-MM-DD',
+  //               ),
+  //               onTap: () async {
+  //                 FocusScope.of(context).requestFocus(FocusNode());
+  //                 DateTime? pickedDate = await showDatePicker(
+  //                   context: context,
+  //                   initialDate: DateTime.now(),
+  //                   firstDate: DateTime(2000),
+  //                   lastDate: DateTime(2101),
+  //                 );
+  //                 if (pickedDate != null) {
+  //                   dueDateController.text =
+  //                       pickedDate
+  //                           .toIso8601String()
+  //                           .split('T')
+  //                           .first;
+  //                 }
+  //               },
+  //             ),
+  //             TextField(
+  //               controller: dueTimeController,
+  //               decoration: const InputDecoration(
+  //                 labelText: 'Due Time',
+  //                 hintText: 'HH:MM TZ',
+  //               ),
+  //               keyboardType: TextInputType.datetime,
+  //             ),
+  //             TextField(
+  //               controller: submissionController,
+  //               decoration: const InputDecoration(
+  //                 labelText: 'Submission URL',
+  //                 hintText: 'Enter submission URL',
+  //               ),
+  //               keyboardType: TextInputType.url,
+  //             ),
+  //             TextField(
+  //               controller: resourcesController,
+  //               decoration: const InputDecoration(
+  //                 labelText: 'Resources (comma-separated links)',
+  //                 hintText: 'Enter resource links',
+  //               ),
+  //               maxLines: null,
+  //             ),
+  //           ],
+  //         ),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () => Navigator.of(context).pop(),
+  //             child: const Text('Cancel'),
+  //           ),
+  //           ElevatedButton(
+  //             onPressed: () {
+  //               _editAssignment(data);
+  //             },
+  //             child: const Text('Save Changes'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+
+  final _formKey = GlobalKey<FormState>();
 
   void _showAddAssignmentDialog() {
     courseController.clear();
@@ -146,76 +348,98 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: const Border(
-            top: BorderSide(color: Color(0xFFDFDFDF)),
-            left: BorderSide(color: Color(0xFFDFDFDF)),
-            right: BorderSide(color: Color(0xFF7F7F7F)),
-            bottom: BorderSide(color: Color(0xFF7F7F7F)),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
           title: const Text('Add Assignment'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: courseController,
-                decoration: const InputDecoration(labelText: 'Course'),
-              ),
-              TextField(
-                controller: nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-              ),
-              TextField(
-                controller: typeController,
-                decoration: const InputDecoration(labelText: 'Type'),
-              ),
-              TextField(
-                controller: dueDateController,
-                decoration: const InputDecoration(
-                  labelText: 'Due Date',
-                  hintText: 'e.g. YYYY-MM-DD',
+          content: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: courseController,
+                  decoration: const InputDecoration(labelText: 'Course'),
                 ),
-                onTap: () async {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2101),
-                  );
-                  if (pickedDate != null) {
-                    dueDateController.text =
-                        pickedDate
-                            .toIso8601String()
-                            .split('T')
-                            .first;
-                  }
-                },
-              ),
-              TextField(
-                controller: dueTimeController,
-                decoration: const InputDecoration(
-                  labelText: 'Due Time',
-                  hintText: 'HH:MM TZ',
+                TextFormField(
+                  controller: nameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Name',
+                    errorStyle: TextStyle(color: Colors.red),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Name is required';
+                    }
+                    return null;
+                  },
                 ),
-                keyboardType: TextInputType.datetime,
-              ),
-              TextField(
-                controller: submissionController,
-                decoration: const InputDecoration(
-                  labelText: 'Submission URL',
-                  hintText: 'Enter submission URL',
+                TextFormField(
+                  controller: typeController,
+                  decoration: const InputDecoration(labelText: 'Type'),
                 ),
-                keyboardType: TextInputType.url,
-              ),
-              TextField(
-                controller: resourcesController,
-                decoration: const InputDecoration(
-                  labelText: 'Resources (comma-separated links)',
-                  hintText: 'Enter resource links',
+                TextFormField(
+                  controller: dueDateController,
+                  decoration: const InputDecoration(
+                    labelText: 'Due Date',
+                    hintText: 'e.g. YYYY-MM-DD',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Due Date is required';
+                    }
+                    if (!RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(value)) {
+                      return 'Enter a valid date (YYYY-MM-DD)';
+                    }
+                    return null;
+                  },
+                  onTap: () async {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2101),
+                    );
+                    if (pickedDate != null) {
+                      dueDateController.text =
+                          pickedDate.toIso8601String().split('T').first;
+                    }
+                  },
                 ),
-                maxLines: null,
-              ),
-            ],
+                TextFormField(
+                  controller: dueTimeController,
+                  decoration: const InputDecoration(
+                    labelText: 'Due Time',
+                    hintText: 'HH:MM TZ',
+                  ),
+                  validator: (value) {
+                    final timeRegEx = RegExp(
+                      r'^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])\s?(AM|PM)?,?\s(IDLW|NST|HST|AKST|PST|MST|CST|EST|UTC|CET|EET|MSK|GST|PKT|BST|ICT|CST|JST|AEST|AEDT|NZST)$',
+                    );
+                    return (value == null || !timeRegEx.hasMatch(value))
+                        ? 'Enter a valid time in HH:MM TZ format'
+                        : null;
+                  },
+                ),
+                TextFormField(
+                  controller: submissionController,
+                  decoration: const InputDecoration(
+                    labelText: 'Submission URL',
+                    hintText: 'Enter submission URL',
+                  ),
+                  keyboardType: TextInputType.url,
+                ),
+                TextFormField(
+                  controller: resourcesController,
+                  decoration: const InputDecoration(
+                    labelText: 'Resources (comma-separated links)',
+                    hintText: 'Enter resource links',
+                  ),
+                  maxLines: null,
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -223,7 +447,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Text('Cancel'),
             ),
             ElevatedButton(
-              onPressed: _addAssignment,
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _addAssignment();
+                }
+              },
               child: const Text('Add Assignment'),
             ),
           ],
@@ -232,12 +460,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+
+
+  final _editFormKey = GlobalKey<FormState>();
+
   void _showEditAssignmentDialog(Map<String, dynamic> data) {
     courseController.text = data['Course'] ?? '';
     nameController.text = data['Name'] ?? '';
     typeController.text = data['Type'] ?? '';
     dueDateController.text = data['Due Date'] ?? '';
-    dueTimeController.text = data['Due Time'] ?? '';
+    dueTimeController.text = convertToTimeZoneFormat(data['Due Time'] ?? '');
     submissionController.text = data['Submission'] ?? '';
     resourcesController.text = data['Resources']?.join(', ') ?? '';
 
@@ -252,69 +484,100 @@ class _HomeScreenState extends State<HomeScreen> {
             bottom: BorderSide(color: Color(0xFF7F7F7F)),
           ),
           title: const Text('Edit Assignment'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: courseController,
-                decoration: const InputDecoration(labelText: 'Course'),
-              ),
-              TextField(
-                controller: nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-              ),
-              TextField(
-                controller: typeController,
-                decoration: const InputDecoration(labelText: 'Type'),
-              ),
-              TextField(
-                controller: dueDateController,
-                decoration: const InputDecoration(
-                  labelText: 'Due Date',
-                  hintText: 'e.g. YYYY-MM-DD',
+          content: Form(
+            key: _editFormKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: courseController,
+                  decoration: const InputDecoration(labelText: 'Course'),
                 ),
-                onTap: () async {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2101),
-                  );
-                  if (pickedDate != null) {
-                    dueDateController.text =
-                        pickedDate
-                            .toIso8601String()
-                            .split('T')
-                            .first;
-                  }
-                },
-              ),
-              TextField(
-                controller: dueTimeController,
-                decoration: const InputDecoration(
-                  labelText: 'Due Time',
-                  hintText: 'HH:MM TZ',
+                TextFormField(
+                  controller: nameController,
+                  decoration: const InputDecoration(labelText: 'Name'),
+                  validator: (value) {
+                    return (value == null || value.isEmpty)
+                        ? 'Name cannot be empty'
+                        : null;
+                  },
                 ),
-                keyboardType: TextInputType.datetime,
-              ),
-              TextField(
-                controller: submissionController,
-                decoration: const InputDecoration(
-                  labelText: 'Submission URL',
-                  hintText: 'Enter submission URL',
+                TextFormField(
+                  controller: typeController,
+                  decoration: const InputDecoration(labelText: 'Type'),
                 ),
-                keyboardType: TextInputType.url,
-              ),
-              TextField(
-                controller: resourcesController,
-                decoration: const InputDecoration(
-                  labelText: 'Resources (comma-separated links)',
-                  hintText: 'Enter resource links',
+                TextFormField(
+                  controller: dueDateController,
+                  decoration: const InputDecoration(
+                    labelText: 'Due Date',
+                    hintText: 'e.g. YYYY-MM-DD',
+                  ),
+                  validator: (value) {
+                    final dateRegEx = RegExp(r'^\d{4}-\d{2}-\d{2}$');
+                    return (value == null || !dateRegEx.hasMatch(value))
+                        ? 'Enter a valid date in YYYY-MM-DD format'
+                        : null;
+                  },
+                  onTap: () async {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2101),
+                    );
+                    if (pickedDate != null) {
+                      dueDateController.text =
+                          pickedDate.toIso8601String().split('T').first;
+                    }
+                  },
                 ),
-                maxLines: null,
-              ),
-            ],
+                TextFormField(
+                  controller: dueTimeController,
+                  decoration: const InputDecoration(
+                    labelText: 'Due Time',
+                    hintText: 'HH:MM TZ',
+                  ),
+                  validator: (value) {
+                    final timeRegEx = RegExp(
+                      r'^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])\s?(AM|PM)?,?\s(IDLW|NST|HST|AKST|PST|MST|CST|EST|UTC|CET|EET|MSK|GST|PKT|BST|ICT|CST|JST|AEST|AEDT|NZST)$',
+                    );
+                    return (value == null || !timeRegEx.hasMatch(value))
+                        ? 'Enter a valid time in HH:MM TZ format'
+                        : null;
+                  },
+                  keyboardType: TextInputType.datetime,
+                ),
+                TextFormField(
+                  controller: submissionController,
+                  decoration: const InputDecoration(
+                    labelText: 'Submission URL',
+                    hintText: 'Enter submission URL',
+                  ),
+                  keyboardType: TextInputType.url,
+                ),
+                TextFormField(
+                  controller: resourcesController,
+                  decoration: const InputDecoration(
+                    labelText: 'Resources (comma-separated links)',
+                    hintText: 'Enter resource links',
+                  ),
+                  validator: (value) {
+                    // Optional validation for URLs separated by commas.
+                    if (value != null && value.isNotEmpty) {
+                      for (var url in value.split(',')) {
+                        if (!Uri.tryParse(url.trim())!.isAbsolute) {
+                          return 'Each resource link must be a valid URL';
+                        }
+                      }
+                    }
+                    return null;
+                  },
+                  maxLines: null,
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -323,7 +586,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                _editAssignment(data);
+                if (_editFormKey.currentState?.validate() ?? false) {
+                  _editAssignment(data);
+                }
               },
               child: const Text('Save Changes'),
             ),
@@ -332,6 +597,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
+
 
   void _showDeleteConfirmationDialog(Map<String, dynamic> data) {
     showDialog(
@@ -353,10 +619,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               onPressed: () {
                 _deleteAssignment(data);
-                Navigator.of(context).pop();
               },
               style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 255, 0, 0)),
+                  textStyle: const TextStyle(
+                      color: Color.fromARGB(255, 240, 2, 2))),
               child: const Text('Yes'),
             ),
           ],
@@ -368,13 +634,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Assignments')),
+      // appBar: AppBar(title: const Text('Assignments')),
       body: Center(
         child: userData.isEmpty
             ? Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Text(
+              'Assignments',
+              style: TextStyle(
+                fontSize: 50,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 50),
             DataTable(
               columns: const [
                 DataColumn(label: Text('Course')),
@@ -397,10 +671,22 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         )
-            : Column(
+            :
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Text(
+              'Assignments',
+              style: TextStyle(
+                fontSize: 50,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 50),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child:
             DataTable(
               columns: const [
                 DataColumn(label: SelectableText('Course')),
@@ -439,9 +725,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ]),
-              )
-                  .toList(),
-            ),
+              ).toList(),
+            )),
             const SizedBox(height: 20),
             FloatingActionButton.extended(
               heroTag: "Add Task",
@@ -474,7 +759,8 @@ class _HomeScreenState extends State<HomeScreen> {
               _showCellDialog(name ?? 'Cell Content', content ?? '-'),
           child: RichText(
             text: TextSpan(
-                text: content
+                text: content,
+                style: const TextStyle(color: Colors.black)
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -575,7 +861,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onLongPress: () => _showCellDialog(name ?? 'Submission', urlString),
         onDoubleTap: () => _showCellDialog(name ?? 'Submission', urlString),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1000),
+          constraints: const BoxConstraints(maxWidth: 300),
           // Limit width of cell
           child: RichText(
             text: TextSpan(
@@ -592,7 +878,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
             ),
             maxLines: 1, // Limit text to one line
-            overflow: TextOverflow.fade, // Handle overflow
+            overflow: TextOverflow.ellipsis, // Handle overflow
           ),
         ),
       );
@@ -601,7 +887,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onLongPress: () => _showCellDialog(name ?? 'Submission', url),
         onDoubleTap: () => _showCellDialog(name ?? 'Submission', url),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1000),
+          constraints: const BoxConstraints(maxWidth: 300),
           // Limit width of cell
           child: Text(url)
         ),
@@ -674,7 +960,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
               ),
               maxLines: 1, // Limit text to one line
-              overflow: TextOverflow.fade, // Handle overflow
+              overflow: TextOverflow.ellipsis, // Handle overflow
             ), // Display the content of the cell in the dialog
           ),
           actions: [
