@@ -76,4 +76,4 @@ ThemeData customTheme() {
       labelSmall: TextStyle(color: Color.fromARGB(255, 20, 20, 20), fontSize: 12, fontWeight: FontWeight.bold),
     ),
   );
-
+}

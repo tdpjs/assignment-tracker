@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:assignment_tracker/filters.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -22,6 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController dueTimeController = TextEditingController();
   final TextEditingController submissionController = TextEditingController();
   final TextEditingController resourcesController = TextEditingController();
+  final TextEditingController _filterController = TextEditingController();
+  DataTable? _filteredDataTable;
+  String? _errorMessage;
 
   @override
   void initState() {
@@ -30,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.pushNamed(context, '/auth');
     } else {
       _fetchUserData();
+      _applyFilters();
     }
   }
 
@@ -57,7 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
   }
-
 
   Future<void> _addAssignment() async {
     final userId = supabase.auth.currentUser?.id;
@@ -132,206 +136,6 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
   }
-
-  // void _showAddAssignmentDialog() {
-  //   courseController.clear();
-  //   nameController.clear();
-  //   typeController.clear();
-  //   dueDateController.clear();
-  //   dueTimeController.clear();
-  //   submissionController.clear();
-  //   resourcesController.clear();
-  //
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         shape: const Border(
-  //           top: BorderSide(color: Color(0xFFDFDFDF)),
-  //           left: BorderSide(color: Color(0xFFDFDFDF)),
-  //           right: BorderSide(color: Color(0xFF7F7F7F)),
-  //           bottom: BorderSide(color: Color(0xFF7F7F7F)),
-  //         ),
-  //         title: const Text('Add Assignment'),
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             TextField(
-  //               controller: courseController,
-  //               decoration: const InputDecoration(labelText: 'Course'),
-  //             ),
-  //             TextField(
-  //               controller: nameController,
-  //               decoration: const InputDecoration(labelText: 'Name'),
-  //             ),
-  //             TextField(
-  //               controller: typeController,
-  //               decoration: const InputDecoration(labelText: 'Type'),
-  //             ),
-  //             TextField(
-  //               controller: dueDateController,
-  //               decoration: const InputDecoration(
-  //                 labelText: 'Due Date',
-  //                 hintText: 'e.g. YYYY-MM-DD',
-  //               ),
-  //               onTap: () async {
-  //                 FocusScope.of(context).requestFocus(FocusNode());
-  //                 DateTime? pickedDate = await showDatePicker(
-  //                   context: context,
-  //                   initialDate: DateTime.now(),
-  //                   firstDate: DateTime(2000),
-  //                   lastDate: DateTime(2101),
-  //                 );
-  //                 if (pickedDate != null) {
-  //                   dueDateController.text =
-  //                       pickedDate
-  //                           .toIso8601String()
-  //                           .split('T')
-  //                           .first;
-  //                 }
-  //               },
-  //             ),
-  //             TextField(
-  //               controller: dueTimeController,
-  //               decoration: const InputDecoration(
-  //                 labelText: 'Due Time',
-  //                 hintText: 'HH:MM TZ',
-  //               ),
-  //               keyboardType: TextInputType.datetime,
-  //             ),
-  //             TextField(
-  //               controller: submissionController,
-  //               decoration: const InputDecoration(
-  //                 labelText: 'Submission URL',
-  //                 hintText: 'Enter submission URL',
-  //               ),
-  //               keyboardType: TextInputType.url,
-  //             ),
-  //             TextField(
-  //               controller: resourcesController,
-  //               decoration: const InputDecoration(
-  //                 labelText: 'Resources (comma-separated links)',
-  //                 hintText: 'Enter resource links',
-  //               ),
-  //               maxLines: null,
-  //             ),
-  //           ],
-  //         ),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () => Navigator.of(context).pop(),
-  //             child: const Text('Cancel'),
-  //           ),
-  //           ElevatedButton(
-  //             onPressed: _addAssignment,
-  //             child: const Text('Add Assignment'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-  //
-  // void _showEditAssignmentDialog(Map<String, dynamic> data) {
-  //   courseController.text = data['Course'] ?? '';
-  //   nameController.text = data['Name'] ?? '';
-  //   typeController.text = data['Type'] ?? '';
-  //   dueDateController.text = data['Due Date'] ?? '';
-  //   dueTimeController.text = data['Due Time'] ?? '';
-  //   submissionController.text = data['Submission'] ?? '';
-  //   resourcesController.text = data['Resources']?.join(', ') ?? '';
-  //
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         shape: const Border(
-  //           top: BorderSide(color: Color(0xFFDFDFDF)),
-  //           left: BorderSide(color: Color(0xFFDFDFDF)),
-  //           right: BorderSide(color: Color(0xFF7F7F7F)),
-  //           bottom: BorderSide(color: Color(0xFF7F7F7F)),
-  //         ),
-  //         title: const Text('Edit Assignment'),
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             TextField(
-  //               controller: courseController,
-  //               decoration: const InputDecoration(labelText: 'Course'),
-  //             ),
-  //             TextField(
-  //               controller: nameController,
-  //               decoration: const InputDecoration(labelText: 'Name'),
-  //             ),
-  //             TextField(
-  //               controller: typeController,
-  //               decoration: const InputDecoration(labelText: 'Type'),
-  //             ),
-  //             TextField(
-  //               controller: dueDateController,
-  //               decoration: const InputDecoration(
-  //                 labelText: 'Due Date',
-  //                 hintText: 'e.g. YYYY-MM-DD',
-  //               ),
-  //               onTap: () async {
-  //                 FocusScope.of(context).requestFocus(FocusNode());
-  //                 DateTime? pickedDate = await showDatePicker(
-  //                   context: context,
-  //                   initialDate: DateTime.now(),
-  //                   firstDate: DateTime(2000),
-  //                   lastDate: DateTime(2101),
-  //                 );
-  //                 if (pickedDate != null) {
-  //                   dueDateController.text =
-  //                       pickedDate
-  //                           .toIso8601String()
-  //                           .split('T')
-  //                           .first;
-  //                 }
-  //               },
-  //             ),
-  //             TextField(
-  //               controller: dueTimeController,
-  //               decoration: const InputDecoration(
-  //                 labelText: 'Due Time',
-  //                 hintText: 'HH:MM TZ',
-  //               ),
-  //               keyboardType: TextInputType.datetime,
-  //             ),
-  //             TextField(
-  //               controller: submissionController,
-  //               decoration: const InputDecoration(
-  //                 labelText: 'Submission URL',
-  //                 hintText: 'Enter submission URL',
-  //               ),
-  //               keyboardType: TextInputType.url,
-  //             ),
-  //             TextField(
-  //               controller: resourcesController,
-  //               decoration: const InputDecoration(
-  //                 labelText: 'Resources (comma-separated links)',
-  //                 hintText: 'Enter resource links',
-  //               ),
-  //               maxLines: null,
-  //             ),
-  //           ],
-  //         ),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () => Navigator.of(context).pop(),
-  //             child: const Text('Cancel'),
-  //           ),
-  //           ElevatedButton(
-  //             onPressed: () {
-  //               _editAssignment(data);
-  //             },
-  //             child: const Text('Save Changes'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
   final _formKey = GlobalKey<FormState>();
 
@@ -631,6 +435,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Function to trigger filtering and update the DataTable.
+  Future<void> _applyFilters() async {
+    setState(() {
+      _errorMessage = null; // Reset error message.
+    });
+
+    try {
+      // Call the filtering function and update the DataTable.
+      final filteredDataTable = await buildFilteredDataTable(
+        _filterController.text,
+      );
+      setState(() {
+        _filteredDataTable = filteredDataTable;
+      });
+    } catch (error) {
+      // Display error message if filter application fails.
+      setState(() {
+        _errorMessage = error.toString();
+      });
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -684,49 +511,32 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 50),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: _filterController,
+                      decoration: InputDecoration(
+                        labelText: 'Enter filters (e.g., course:Math type:Exam)',
+                        errorText: _errorMessage,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  IconButton(
+                    onPressed: _applyFilters,
+                    icon: const Icon(Icons.filter_alt),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 50),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child:
-            DataTable(
-              columns: const [
-                DataColumn(label: SelectableText('Course')),
-                DataColumn(label: SelectableText('Name')),
-                DataColumn(label: SelectableText('Type')),
-                DataColumn(label: SelectableText('Due Date')),
-                DataColumn(label: SelectableText('Due Time')),
-                DataColumn(label: SelectableText('Submission')),
-                DataColumn(label: SelectableText('Resources')),
-                DataColumn(label: SelectableText('Actions')),
-              ],
-              rows: userData
-                  .map(
-                    (data) =>
-                    DataRow(cells: [
-                      DataCell(_buildCell("Course", data['Course'])),
-                      DataCell(_buildCell("Name", data['Name'])),
-                      DataCell(_buildCell("Type", data['Type'])),
-                      DataCell(_buildCell("Due Date", data['Due Date'])),
-                      DataCell(_buildTimeCell(data['Due Time'], name: "Due Time")),
-                      DataCell(_buildLinkCell(data['Submission'])),
-                      DataCell(_buildResourcesCell(data['Resources'] ?? [])),
-                      DataCell(
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () => _showEditAssignmentDialog(data),
-                              icon: const Icon(Icons.edit),
-                            ),
-                            IconButton(
-                              onPressed: () =>
-                                  _showDeleteConfirmationDialog(data),
-                              icon: const Icon(Icons.delete),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ]),
-              ).toList(),
-            )),
+              child: _filteredDataTable
+               ),
             const SizedBox(height: 20),
             FloatingActionButton.extended(
               heroTag: "Add Task",
@@ -769,8 +579,19 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  String? getOffset(String input) {
+    var regex = RegExp(r'(\d{2}):(\d{2}):(\d{2})([+-]\d{1,2})');
+    var match = regex.firstMatch(input);
+
+    if (match == null) {
+      return 'Invalid input format';
+    }
+
+    return match.group(4);
+  }
+
   String convertToTimeZoneFormat(String input) {
-    var regex = RegExp(r'(\d{2}):(\d{2}):(\d{2})([+-]\d{2})');
+    var regex = RegExp(r'(\d{2}):(\d{2}):(\d{2})([+-]\d{1,2})');
     var match = regex.firstMatch(input);
 
     if (match == null) {
@@ -797,31 +618,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   String getTimezoneAbbreviation(String offset) {
-    Map<String, String> timezoneMap = {
-      '-12': 'IDLW',
-      '-11': 'NST',
-      '-10': 'HST',
-      '-09': 'AKST',
-      '-08': 'PST',
-      '-07': 'MST',
-      '-06': 'CST',
-      '-05': 'EST',
-      '+00': 'UTC',
-      '+01': 'CET',
-      '+02': 'EET',
-      '+03': 'MSK',
-      '+04': 'GST',
-      '+05': 'PKT',
-      '+06': 'BST',
-      '+07': 'ICT',
-      '+08': 'CST',
-      '+09': 'JST',
-      '+10': 'AEST',
-      '+11': 'AEDT',
-      '+12': 'NZST',
-    };
-
-    return timezoneMap[offset] ?? 'Unknown';
+    return timezoneOffsets[offset] ?? 'Unknown';
   }
 
   Widget _buildTimeCell(String? timeString, {String? name}) {
@@ -1036,4 +833,362 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+// Define a map for the timezone offsets.
+  static const timezoneOffsets = {
+    '-12': 'IDLW',
+    '-11': 'NST',
+    '-10': 'HST',
+    '-09': 'AKST',
+    '-08': 'PST',
+    '-07': 'MST',
+    '-06': 'CST',
+    '-05': 'EST',
+    '+00': 'UTC',
+    '+01': 'CET',
+    '+02': 'EET',
+    '+03': 'MSK',
+    '+04': 'GST',
+    '+05': 'PKT',
+    '+06': 'BST',
+    '+07': 'ICT',
+    '+08': 'CST',
+    '+09': 'JST',
+    '+10': 'AEST',
+    '+11': 'AEDT',
+    '+12': 'NZST',
+  };
+
+  Future<DataTable> buildFilteredDataTable(String? filters) async {
+    // Initialize filter parameters.
+    String? courseFilter, nameFilter, typeFilter, timezoneFilter;
+    DateTime? fromDate, toDate;
+
+    // Parse the filters string if provided.
+    if (filters != null && filters.isNotEmpty) {
+      final filterSegments = filters.split(' ');
+      for (var segment in filterSegments) {
+        if (segment.startsWith('course:')) {
+          courseFilter = segment.split(':')[1];
+        } else if (segment.startsWith('name:')) {
+          nameFilter = segment.split(':')[1];
+        } else if (segment.startsWith('type:')) {
+          typeFilter = segment.split(':')[1];
+        } else if (segment.startsWith('timezone:')) {
+          timezoneFilter = segment.split(':')[1];
+        } else if (segment.startsWith('from:')) {
+          fromDate = DateTime.parse(segment.split(':')[1]);
+        } else if (segment.startsWith('to:')) {
+          toDate = DateTime.parse(segment.split(':')[1]);
+        }
+      }
+    }
+
+    if (fromDate != null || toDate != null) {
+      if (timezoneFilter == null || timezoneFilter.isEmpty) {
+        throw ArgumentError(
+            'A timezone must be provided when using from and to.');
+      }
+    }
+
+    // Fetch data from the database with the specified filters.
+    final filteredData = await fetchDataWithFilters(
+      course: courseFilter,
+      name: nameFilter,
+      type: typeFilter,
+      timezone: timezoneFilter,
+      fromDate: fromDate,
+      toDate: toDate,
+    );
+
+    // Build the DataTable rows from the filtered data.
+    return DataTable(
+      columns: const [
+        DataColumn(label: SelectableText('Course')),
+        DataColumn(label: SelectableText('Name')),
+        DataColumn(label: SelectableText('Type')),
+        DataColumn(label: SelectableText('Due Date')),
+        DataColumn(label: SelectableText('Due Time')),
+        DataColumn(label: SelectableText('Submission')),
+        DataColumn(label: SelectableText('Resources')),
+        DataColumn(label: SelectableText('Actions')),
+      ],
+      rows: filteredData
+          .map(
+            (data) => DataRow(
+          cells: [
+            DataCell(_buildCell("Course", data['Course'])),
+            DataCell(_buildCell("Name", data['Name'])),
+            DataCell(_buildCell("Type", data['Type'])),
+            DataCell(_buildCell("Due Date", data['Due Date'])),
+            DataCell(_buildTimeCell(data['Due Time'], name: "Due Time")),
+            DataCell(_buildLinkCell(data['Submission'])),
+            DataCell(_buildResourcesCell(data['Resources'] ?? [])),
+            DataCell(
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () => _showEditAssignmentDialog(data),
+                    icon: const Icon(Icons.edit),
+                  ),
+                  IconButton(
+                    onPressed: () => _showDeleteConfirmationDialog(data),
+                    icon: const Icon(Icons.delete),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )
+          .toList(),
+    );
+  }
+
+  DateTime convertToUTC(DateTime localTime, String timezone) {
+
+    // If the timezone is not found, throw an error.
+    if (!stringToIntoffsets.containsKey(timezone)) {
+      throw ArgumentError('Invalid timezone: $timezone');
+    }
+
+    // Get the timezone offset.
+    int offset = stringToIntoffsets[timezone]! as int;
+
+    // Convert the local time to UTC by adding/subtracting the offset
+    // Local time is in the specified timezone, so adjust it to UTC
+    return localTime.add(Duration(hours: offset));
+  }
+
+  Future<List<Map<String, dynamic>>> fetchDataWithFilters({
+    String? course,
+    String? name,
+    String? type,
+    String? timezone,
+    DateTime? fromDate,
+    DateTime? toDate,
+  }) async {
+    await _fetchUserData();
+    List<Map<String, dynamic>> allData = userData;
+
+    if ([course, name, type, timezone, fromDate, toDate].every((filter) => filter == null)) {
+      return allData;
+    }
+
+    // Convert fromDate and toDate to UTC once.
+    final fromDateUTC = fromDate != null && timezone != null
+        ? convertToUTC(fromDate, timezone)
+        : null;
+    final toDateUTC = toDate != null && timezone != null
+        ? convertToUTC(toDate, timezone)
+        : null;
+
+    return allData.where((data) {
+      if (course != null && data['Course'] != course) return false;
+      if (name != null && !data['Name'].contains(name)) return false;
+      if (type != null && data['Type'] != type) return false;
+
+      final dueDate = DateTime.parse(data['Due Date']);
+      final dueDateUTC = timezone != null ? convertToUTC(dueDate, timezone) : dueDate.toUtc();
+
+      if (fromDateUTC != null && dueDateUTC.isBefore(fromDateUTC)) return false;
+      if (toDateUTC != null && dueDateUTC.isAfter(toDateUTC)) return false;
+
+      return true;
+    }).toList();
+  }
+
+
+
+  static const Map<String, double> stringToIntoffsets = {
+    'ACDT': 10.5,
+    'ACST': 9.5,
+    'ACT': -5.0,
+    'ACWST': 8.75,
+    'ADT': -3.0,
+    'AEDT': 11.0,
+    'AEST': 10.0,
+    'AFT': 4.5,
+    'AKDT': -8.0,
+    'AKST': -9.0,
+    'ALMT': 6.0,
+    'AMST': -3.0,
+    'AMT': -4.0,
+    'ANAST': 12.0,
+    'ANAT': 12.0,
+    'AQTT': 5.0,
+    'ART': -3.0,
+    'AST': 3.0,
+    'AWDT': 9.0,
+    'AWST': 8.0,
+    'AZOST': 0.0,
+    'AZOT': -1.0,
+    'AZST': 5.0,
+    'AZT': 4.0,
+    'AoE': -12.0,
+    'BNT': 8.0,
+    'BOT': -4.0,
+    'BRST': -2.0,
+    'BRT': -3.0,
+    'BST': 6.0,
+    'BTT': 6.0,
+    'CAST': 8.0,
+    'CAT': 2.0,
+    'CCT': 6.5,
+    'CDT': -5.0,
+    'CEST': 2.0,
+    'CET': 1.0,
+    'CHADT': 13.75,
+    'CHAST': 12.75,
+    'CHOST': 9.0,
+    'CHOT': 8.0,
+    'CHUT': 10.0,
+    'CIST': -5.0,
+    'CKT': -10.0,
+    'CLST': -3.0,
+    'CLT': -4.0,
+    'COT': -5.0,
+    'CST': -6.0,
+    'CVT': -1.0,
+    'CXT': 7.0,
+    'ChST': 10.0,
+    'DAVT': 7.0,
+    'DDUT': 10.0,
+    'EASST': -5.0,
+    'EAST': -6.0,
+    'EAT': 3.0,
+    'ECT': -5.0,
+    'EDT': -4.0,
+    'EEST': 3.0,
+    'EET': 2.0,
+    'EGST': 0.0,
+    'EGT': -1.0,
+    'EST': -5.0,
+    'ET': -5.0,
+    'FET': 3.0,
+    'FJST': 13.0,
+    'FJT': 12.0,
+    'FKST': -3.0,
+    'FKT': -4.0,
+    'FNT': -2.0,
+    'GALT': -6.0,
+    'GAMT': -9.0,
+    'GET': 4.0,
+    'GFT': -3.0,
+    'GILT': 12.0,
+    'GMT': 0.0,
+    'GST': 4.0,
+    'GYT': -4.0,
+    'HKT': 8.0,
+    'HST': -10.0,
+    'IOT': 6.0,
+    'IRDT': 4.5,
+    'IRKST': 9.0,
+    'IRKT': 8.0,
+    'IRST': 3.5,
+    'IST': 5.5,
+    'JST': 9.0,
+    'KGT': 6.0,
+    'KOST': 11.0,
+    'KRAST': 8.0,
+    'KRAT': 7.0,
+    'KST': 9.0,
+    'KUYT': 4.0,
+    'LHDT': 11.0,
+    'LHST': 10.5,
+    'LINT': 14.0,
+    'MAGST': 12.0,
+    'MAGT': 11.0,
+    'MART': -9.5,
+    'MAWT': 5.0,
+    'MDT': -6.0,
+    'MHT': 12.0,
+    'MMT': 6.5,
+    'MSD': 4.0,
+    'MSK': 3.0,
+    'MST': -7.0,
+    'MUT': 4.0,
+    'MVT': 5.0,
+    'MYT': 8.0,
+    'NCT': 11.0,
+    'NDT': -2.5,
+    'NFDT': 12.0,
+    'NFT': 11.0,
+    'NOVST': 7.0,
+    'NOVT': 7.0,
+    'NPT': 5.75,
+    'NRT': 12.0,
+    'NST': -3.5,
+    'NUT': -11.0,
+    'NZDT': 13.0,
+    'NZST': 12.0,
+    'OMSST': 7.0,
+    'OMST': 6.0,
+    'ORAT': 5.0,
+    'PDT': -7.0,
+    'PET': -5.0,
+    'PETST': 12.0,
+    'PETT': 12.0,
+    'PGT': 10.0,
+    'PHOT': 13.0,
+    'PHT': 8.0,
+    'PKT': 5.0,
+    'PMDT': -2.0,
+    'PMST': -3.0,
+    'PONST': 11.0,
+    'PST': -8.0,
+    'PWT': 9.0,
+    'PYST': -3.0,
+    'PYT': -3.0,
+    'QYZT': 6.0,
+    'RET': 4.0,
+    'ROTT': -3.0,
+    'SAST': 2.0,
+    'SBT': 11.0,
+    'SCT': 4.0,
+    'SGT': 8.0,
+    'SRET': 11.0,
+    'SRT': -3.0,
+    'SST': -11.0,
+    'SYOT': 3.0,
+    'TAHT': -10.0,
+    'TFT': 5.0,
+    'TJT': 5.0,
+    'TKT': 13.0,
+    'TLT': 9.0,
+    'TMT': 5.0,
+    'TOST': 14.0,
+    'TOT': 13.0,
+    'TRT': 3.0,
+    'TVT': 12.0,
+    'ULAST': 9.0,
+    'ULAT': 8.0,
+    'UTC': 0.0,
+    'UYST': -2.0,
+    'UYT': -3.0,
+    'UZT': 5.0,
+    'VET': -4.0,
+    'VLAST': 11.0,
+    'VLAT': 10.0,
+    'VOST': 6.0,
+    'VUT': 11.0,
+    'WAKT': 12.0,
+    'WARST': -3.0,
+    'WAST': 2.0,
+    'WAT': 1.0,
+    'WEST': 1.0,
+    'WET': 0.0,
+    'WFT': 12.0,
+    'WIT': 9.0,
+    'WST': 8.0,
+    'WT': -7.0,
+    'YAKT': 9.0,
+    'YAKST': 10.0,
+    'YEKT': 5.0,
+  };
+
 }
+
+
+
+
+
