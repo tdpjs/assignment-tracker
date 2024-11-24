@@ -1,5 +1,2 @@
-# Assignment Tracker
-
-Just something to help my unorganized self be more organized
-
-
+# Problem
+Often students struggle to manage their workload, leading to missed deadlines and incomplete work. It can be inconvenient to navigate through various assignment platforms to keep track of due dates. For example, UBC Computer Engineering students often use Canvas, Piazza, Webwork, Github, Workday, and Edx, each displaying deadlines differently. Managing assignments across multiple sites takes time. How can we help students reduce this overhead and be more productive by centralizing workload management?
