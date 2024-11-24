@@ -221,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
         heroTag: "Log out",
         onPressed: () async {
           await supabase.auth.signOut();
-          Navigator.pushNamed(context, '/');
+          Navigator.pushNamed(context, '/auth');
         },
         child: const Icon(Icons.logout),
       ),
