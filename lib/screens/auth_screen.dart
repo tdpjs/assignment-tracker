@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 
+final supabase = Supabase.instance.client;
+
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
 
@@ -31,6 +33,7 @@ class AuthScreen extends StatelessWidget {
                 onSignInComplete: (res) => Navigator.pushNamed(context, '/home'),
                 onSignUpComplete: (res) => Navigator.pushNamed(context, '/home'),
                 onError: (error) => SnackBar(content: Text(error.toString())),
+                resetPasswordRedirectTo: "http://localhost:3000/#/passwordreset",
               ),
               SupaSocialsAuth(
                 socialProviders: const [

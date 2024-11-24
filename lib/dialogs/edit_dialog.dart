@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/table_management.dart';
 import 'package:intl/intl.dart';
 import '../constants.dart';
-import '../home_screen.dart';
+import '../screens/home_screen.dart';
 
 class EditDialog {
   static final _formKey = GlobalKey<FormState>();

@@ -3,16 +3,16 @@ import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'show_overdue.dart';
-import 'dialogs/add_dialog.dart';
-import 'dialogs/edit_dialog.dart';
-import 'dialogs/delete_dialog.dart';
-import 'constants.dart';
-import 'dialogs/show_cell_dialog.dart';
-import 'build_cells/text_cell.dart';
-import 'build_cells/time_cell.dart';
-import 'build_cells/link_cell.dart';
-import 'build_cells/resources_cell.dart';
+import '../show_overdue.dart';
+import '../dialogs/add_dialog.dart';
+import '../dialogs/edit_dialog.dart';
+import '../dialogs/delete_dialog.dart';
+import '../constants.dart';
+import '../dialogs/show_cell_dialog.dart';
+import '../build_cells/text_cell.dart';
+import '../build_cells/time_cell.dart';
+import '../build_cells/link_cell.dart';
+import '../build_cells/resources_cell.dart';
 
 final supabase = Supabase.instance.client;
 

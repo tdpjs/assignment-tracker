@@ -1,12 +1,12 @@
-import 'package:assignment_tracker/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 
-
-import 'auth_screen.dart';
-import 'home_screen.dart';
+import 'screens/splash_screen.dart';
+import 'screens/auth_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/password_reset_screen.dart';
 
 
 void main() async {
@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/auth': (context) => const AuthScreen(),
         '/home': (context) => const HomeScreen(),
+        '/passwordreset': (context) => const PasswordResetScreen()
       },
     );
   }
