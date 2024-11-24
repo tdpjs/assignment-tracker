@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../functions/table_management.dart';
+import '../utils/table_management.dart';
 import 'package:intl/intl.dart';
 import '../constants.dart';
 import '../home_screen.dart';

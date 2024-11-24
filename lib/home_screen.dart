@@ -8,11 +8,11 @@ import 'dialogs/add_dialog.dart';
 import 'dialogs/edit_dialog.dart';
 import 'dialogs/delete_dialog.dart';
 import 'constants.dart';
-import 'functions/show_cell_dialog.dart';
-import 'build_cells/build_resources_cell.dart';
-import 'build_cells/build_submission_cell.dart';
-import 'build_cells/build_text_cell.dart';
-import 'build_cells/build_time_cell.dart';
+import 'dialogs/show_cell_dialog.dart';
+import 'build_cells/text_cell.dart';
+import 'build_cells/time_cell.dart';
+import 'build_cells/link_cell.dart';
+import 'build_cells/resources_cell.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -545,8 +545,6 @@ class _HomeScreenState extends State<HomeScreen> {
       toDate: toDate,
       showOverdue: showOverdue
     );
-    print("Called");
-    print(showOverdue);
 
     // Build the DataTable rows from the filtered data.
     return DataTable(
@@ -564,13 +562,21 @@ class _HomeScreenState extends State<HomeScreen> {
           .map(
             (data) => DataRow(
           cells: [
-            DataCell(buildCell("Course", data['Course'])),
-            DataCell(buildCell("Name", data['Name'])),
-            DataCell(buildCell("Type", data['Type'])),
-            DataCell(buildCell("Due Date", data['Due Date'])),
-            DataCell(_buildTimeCell(data['Due Time'], name: "Due Time")),
-            DataCell(_buildLinkCell(data['Submission'])),
-            DataCell(_buildResourcesCell(data['Resources'] ?? [])),
+            // DataCell(buildCell("Course", data['Course'])),
+            // DataCell(buildCell("Name", data['Name'])),
+            // DataCell(buildCell("Type", data['Type'])),
+            // DataCell(buildCell("Due Date", data['Due Date'])),
+            // DataCell(_buildTimeCell(data['Due Time'], name: "Due Time")),
+            // DataCell(_buildLinkCell(data['Submission'])),
+            // DataCell(_buildResourcesCell(data['Resources'] ?? [])),
+            // DataCell(_buildResourcesCell(data['Resources'] ?? [])),
+            TextCell(name: 'Course', content: data['Course'], context: context),
+            TextCell(name: 'Name', content: data['Name'], context: context),
+            TextCell(name: 'Type', content: data['Type'], context: context),
+            TextCell(name: 'Due Date', content: data['Due Date'], context: context),
+            TimeCell(time: data['Due Time'], context: context, name: 'Due Time'),
+            LinkCell(name: 'Submission', url: data["Submission"], context: context),
+            ResourcesCell(name: 'Resources',resources: data['Resources'], context: context),
             DataCell(
               Row(
                 children: [

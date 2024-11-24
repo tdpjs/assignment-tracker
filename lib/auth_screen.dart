@@ -18,10 +18,10 @@ class AuthScreen extends StatelessWidget {
           Column(
             children: [
               const Text(
-                'Sign In',
+                'Please sign in to continue',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 25,
                 ),
               ),
               const SizedBox(height: 24.0),
@@ -36,13 +36,12 @@ class AuthScreen extends StatelessWidget {
                 socialProviders: const [
                   OAuthProvider.google,
                   OAuthProvider.github,
+                  OAuthProvider.discord
                 ],
-                redirectUrl:
-                kIsWeb ? null : "io.supabase.assignmenttracker://login-callback/",
-                onSuccess: (session) => Navigator.pushNamed(
-                  context,
-                  '/home',
-                ),
+                redirectUrl: "http://localhost:3000/#/home",
+                // kIsWeb ? "https://thtoocplqnmszmmvyikb.supabase.co/auth/v1/callback"
+                //         : "io.supabase.assignmenttracker://login-callback/",
+                onSuccess: (session) => Navigator.pushReplacementNamed(context, '/home'),
                 onError: (error) => SnackBar(
                   content: Text(
                     error.toString(),
@@ -56,3 +55,4 @@ class AuthScreen extends StatelessWidget {
     );
   }
 }
+
