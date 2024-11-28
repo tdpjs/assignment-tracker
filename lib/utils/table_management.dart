@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Adds an assignment to the database.
 /// [fetchUserData] is the callback to fetch user data after the operation.
-Future<void> addAssignment({
+Future<bool> addAssignment({
   required BuildContext context,
   required VoidCallback initializeData,
   required TextEditingController courseController,
@@ -37,13 +37,16 @@ Future<void> addAssignment({
       Navigator.of(context).pop();
     } catch (error) {
       print('Error adding assignment: $error');
+      return false;
     }
+    return true;
   }
+  return false;
 }
 
 /// Edits an assignment in the database.
 /// [fetchUserData] is the callback to fetch user data after the operation.
-Future<void> editAssignment({
+Future<bool> editAssignment({
   required BuildContext context,
   required VoidCallback initializeData,
   required Map<String, dynamic> data,
@@ -77,15 +80,18 @@ Future<void> editAssignment({
 
       initializeData();
       Navigator.of(context).pop();
+      return true;
     } catch (error) {
       print('Error updating assignment: $error');
+      return false;
     }
   }
+  return true;
 }
 
 /// Deletes an assignment from the database.
 /// [fetchUserData] is the callback to fetch user data after the operation.
-Future<void> deleteAssignment({
+Future<bool> deleteAssignment({
   required BuildContext context,
   required VoidCallback initializeData,
   required Map<String, dynamic> data,
@@ -100,8 +106,11 @@ Future<void> deleteAssignment({
 
       initializeData();
       Navigator.of(context).pop();
+      return true;
     } catch (error) {
       print('Error deleting assignment: $error');
+      return false;
     }
   }
+  return true;
 }
