@@ -23,7 +23,7 @@ class AuthScreen extends StatelessWidget {
                 'Please sign in to continue',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 25,
+                  fontSize: 50,
                 ),
               ),
               const SizedBox(height: 24.0),
