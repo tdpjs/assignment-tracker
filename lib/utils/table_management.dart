@@ -109,7 +109,10 @@ Future<bool> editAssignment({
 }
 
 /// Deletes an assignment from the database.
-/// [fetchUserData] is the callback to fetch user data after the operation.
+/// @param [context] the current BuildContext of the app
+/// @param [initializeData] is the callback to fetch user data after the operation.
+/// @param [data] the current assignment entry
+/// /// @returns true if the operation is successful and false otherwise
 Future<bool> deleteAssignment({
   required BuildContext context,
   required VoidCallback initializeData,

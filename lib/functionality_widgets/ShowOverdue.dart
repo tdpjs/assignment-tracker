@@ -3,11 +3,14 @@ import 'dart:async';
 
 bool showOverdue = false;
 
+/// Widget to implement the feature of showing/hiding tasks whose due dates and time are overdue
+/// When the checkbox is checked, all of the user's tasks will be displayed in the table
+/// When the checkbox is unchecked only tasks whose due dates and times have not passed will be displayed
+/// By default the option is unchecked, hiding all overdue tasks.
 class ShowOverdueCheckbox extends StatefulWidget {
-  final Future<void> Function() applyFilters; // Correct type
+  final Future<void> Function() applyFilters;
 
-  const ShowOverdueCheckbox({Key? key, required this.applyFilters})
-      : super(key: key);
+  const ShowOverdueCheckbox({super.key, required this.applyFilters});
 
   @override
   ShowOverdueCheckboxState createState() => ShowOverdueCheckboxState();
@@ -19,15 +22,13 @@ class ShowOverdueCheckboxState extends State<ShowOverdueCheckbox> {
   void _onCheckboxChanged(bool? value) {
     if (value != null) {
       setState(() {
-        showOverdue = value; // Update global variable
+        showOverdue = value;
       });
 
-      // Cancel any ongoing debounce timer
       _debounce?.cancel();
 
-      // Start a new debounce timer
       _debounce = Timer(const Duration(milliseconds: 300), () {
-        widget.applyFilters(); // Apply filters after debounce
+        widget.applyFilters();
       });
     }
   }
