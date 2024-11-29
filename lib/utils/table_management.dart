@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Adds an assignment to the database.
-/// [fetchUserData] is the callback to fetch user data after the operation.
+/// @param [context] the current BuildContext of the app
+/// @param [initializeData] is the callback to fetch user data after the operation.
+/// @param [courseController] the text controller for the course field of the assignment
+/// @param [nameController] the text controller for the name field of the assignment
+/// @param [typeController] the text controller for the type field of the assignment
+/// @param [dueDateController] the text controller for the due date field of the assignment
+/// @param [dueTimeController] the text controller for the due time field of the assignment
+/// @param [submissionController] the text controller for the submission field of the assignment
+/// @param [resourcesController] the text controller for the resources field of the assignment
+/// @returns true if the addition is successful and false otherwise
 Future<bool> addAssignment({
   required BuildContext context,
   required VoidCallback initializeData,
@@ -45,7 +54,17 @@ Future<bool> addAssignment({
 }
 
 /// Edits an assignment in the database.
-/// [fetchUserData] is the callback to fetch user data after the operation.
+/// @param [context] the current BuildContext of the app
+/// @param [initializeData] is the callback to fetch user data after the operation.
+/// @param [data] the current assignment entry
+/// @param [courseController] the text controller for the course field of the assignment
+/// @param [nameController] the text controller for the name field of the assignment
+/// @param [typeController] the text controller for the type field of the assignment
+/// @param [dueDateController] the text controller for the due date field of the assignment
+/// @param [dueTimeController] the text controller for the due time field of the assignment
+/// @param [submissionController] the text controller for the submission field of the assignment
+/// @param [resourcesController] the text controller for the resources field of the assignment
+/// @returns true if the operation is successful and false otherwise
 Future<bool> editAssignment({
   required BuildContext context,
   required VoidCallback initializeData,

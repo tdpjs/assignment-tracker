@@ -1,6 +1,10 @@
 import 'package:intl/intl.dart';
 import '../constants.dart';
 
+
+/// Converts a time string of format HH:MM:SS+/-<timezone abbreviation>
+/// to HH:MM TIMEZONE
+/// Returns "Invalid input format" if input string is not in the correct format
 String convertToTimeZoneFormat(String input) {
   var regex = RegExp(r'(\d{2}):(\d{2}):(\d{2})([+-]\d{1,2})');
   var match = regex.firstMatch(input);
@@ -14,17 +18,13 @@ String convertToTimeZoneFormat(String input) {
   String second = match.group(3)!;
   String timezoneOffset = match.group(4)!;
 
-  // Combine the time string
   String timeString = '$hour:$minute:$second';
   DateTime time = DateFormat('HH:mm:ss').parse(timeString);
 
-  // Convert to 12-hour format with AM/PM
   String formattedTime = DateFormat('hh:mm a').format(time);
 
-  // Map the timezone offset to abbreviation
   String timezoneAbbreviation = getTimezoneAbbreviation(timezoneOffset);
 
-  // Combine the formatted time and timezone abbreviation
   return '$formattedTime, $timezoneAbbreviation';
 }
 

@@ -8,17 +8,19 @@ import '../build_cells/resources_cell.dart';
 import '../build_cells/link_cell.dart';
 import '../build_cells/time_cell.dart';
 
-/// Function to convert local time to UTC using the given timezone offset.
+/// Converts a local time to its equivalent in UTC
+/// @param localTime the localTime to be converted
+/// @param timezone the timezone of the localTime
+/// @param stringToIntOffsets the mapping from timezone abbreviations to their offsets from UTC
+/// @throws ArgumentError if there isn't a mapping for the provided timezone
+/// @returns the time equivalence of localTime in UTC
 DateTime convertToUTC(DateTime localTime, String timezone, Map<String, int> stringToIntOffsets) {
-  // If the timezone is not found, throw an error.
   if (!stringToIntOffsets.containsKey(timezone)) {
     throw ArgumentError('Invalid timezone: $timezone');
   }
 
-  // Get the timezone offset.
   int offset = stringToIntOffsets[timezone]!;
 
-  // Convert the local time to UTC by adding/subtracting the offset
   return localTime.add(Duration(hours: offset));
 }
 

@@ -1,23 +1,24 @@
 
 import 'package:flutter/material.dart';
 
+/// Takes a string and returns an AppBar with it as the title
 AppBar appBar(String title) => AppBar(
   title: Text(title),
   automaticallyImplyLeading: false,
 );
 
-const optionText = Text(
-  'Or',
-  style: TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.bold,
-  ),
-  textAlign: TextAlign.center,
-);
-
-const spacer = SizedBox(
-  height: 12,
-);
+// const optionText = Text(
+//   'Or',
+//   style: TextStyle(
+//     fontSize: 18,
+//     fontWeight: FontWeight.bold,
+//   ),
+//   textAlign: TextAlign.center,
+// );
+//
+// const spacer = SizedBox(
+//   height: 12,
+// );
 
 const timezoneOffsets = {
   '-12': 'IDLW',
