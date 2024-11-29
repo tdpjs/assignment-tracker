@@ -18,10 +18,12 @@ class DeleteDialog {
           content: const Text('Are you sure you want to delete this assignment?'),
           actions: [
             TextButton(
+              key: const Key('cancelButton'),
               onPressed: () => Navigator.of(context).pop(),
               child: const Text('Cancel'),
             ),
             ElevatedButton(
+              key: const Key('deleteButton'),
               onPressed: () async {
                 await deleteAssignment(
                   context: context,

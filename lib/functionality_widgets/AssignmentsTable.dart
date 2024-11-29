@@ -48,7 +48,9 @@ class AssignmentsTable extends StatelessWidget {
         DataColumn(label: SelectableText('Actions')),
       ],
       rows: currentData.map((data) {
+        key: const Key('dataRow');
         return DataRow(
+
           cells: [
             TextCell(name: 'Course', content: data['Course'], context: context),
             TextCell(name: 'Name', content: data['Name'], context: context),
@@ -76,6 +78,7 @@ class AssignmentsTable extends StatelessWidget {
                     icon: const Icon(Icons.edit),
                   ),
                   IconButton(
+                    key: const Key("deleteIcon"),
                     onPressed: () => DeleteDialog.showDeleteConfirmationDialog(
                       context: context,
                       initializeData: initializeData,
