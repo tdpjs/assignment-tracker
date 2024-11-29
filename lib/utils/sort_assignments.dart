@@ -2,7 +2,7 @@ import 'package:assignment_tracker/utils/time_parsing.dart';
 
 /// Sorts the displayed tasks based on a criteria
 /// @param [currentData] the tasks to filter
-/// @param [criteria] the
+/// @param [criteria] the criteria to sort by
 List<Map<String, dynamic>> sortData({
   required List<Map<String, dynamic>> currentData,
   required String? criteria,

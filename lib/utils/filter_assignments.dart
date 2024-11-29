@@ -18,44 +18,41 @@ List<Map<String, dynamic>> filterData({
   required bool showOverdue,
   required String? filters,
 }) {
-  String? courseFilter, nameFilter, typeFilter, timezoneFilter;
+  String? courseFilter, nameFilter, typeFilter, timezoneFilter = 'PST'; // Default to PST
   DateTime? fromDate, toDate;
 
   if (filters != null && filters.isNotEmpty) {
     final filterSegments = filters.split(' ');
     for (var segment in filterSegments) {
-      if (segment.startsWith('course:')) {
+      if (segment.startsWith('course:') && courseFilter == null) {
         courseFilter = segment.split(':')[1];
-      } else if (segment.startsWith('name:')) {
+      } else if (segment.startsWith('name:') && nameFilter == null) {
         nameFilter = segment.split(':')[1];
-      } else if (segment.startsWith('type:')) {
+      } else if (segment.startsWith('type:') && typeFilter == null) {
         typeFilter = segment.split(':')[1];
-      } else if (segment.startsWith('timezone:')) {
+      } else if (segment.startsWith('timezone:') && timezoneFilter == null) {
         timezoneFilter = segment.split(':')[1];
-      } else if (segment.startsWith('from:')) {
-        fromDate = DateTime.parse(segment.split(':')[1]);
-      } else if (segment.startsWith('to:')) {
-        toDate = DateTime.parse(segment.split(':')[1]);
+      } else if (segment.startsWith('from:') && fromDate == null) {
+        try {
+          fromDate = DateTime.parse(segment.split(':')[1]);
+        } catch (e) {
+          throw ArgumentError("Invalid from date format (YYYY-MM-DD)");
+        }
+      } else if (segment.startsWith('to:') && toDate == null) {
+        try {
+          toDate = DateTime.parse(segment.split(':')[1]);
+        } catch (e) {
+          throw ArgumentError("Invalid to date format (YYYY-MM-DD)");
+        }
       }
     }
   }
 
-  if (fromDate != null || toDate != null) {
-    if (timezoneFilter == null || timezoneFilter.isEmpty) {
-      throw ArgumentError(
-          'A timezone must be provided when using from and to.');
-    }
-  }
-  if ([courseFilter, nameFilter, typeFilter, fromDate, toDate].every((filter) => filter == null) && showOverdue) {
-    return currentData;
-  }
+  // If timezoneFilter is null, default to 'PST'
+  timezoneFilter ??= 'PST';
 
-  final fromDateUTC = fromDate != null && timezoneFilter != null
-      ? convertToUTC(fromDate, timezoneFilter)
-      : null;
-  final toDateUTC = toDate != null && timezoneFilter != null
-      ? convertToUTC(toDate, timezoneFilter)
-      : null;
+  final fromDateUTC = fromDate != null ? convertToUTC(fromDate, timezoneFilter) : null;
+  final toDateUTC = toDate != null ? convertToUTC(toDate, timezoneFilter) : null;
 
   final currentUTC = DateTime.now().toUtc();
 
@@ -67,7 +64,7 @@ List<Map<String, dynamic>> filterData({
     if (typeFilter != null && !data['Type'].contains(typeFilter)) return false;
 
     final dueDate = DateTime.parse(data['Due Date']);
-    final dueDateUTC = timezoneFilter != null ? convertToUTC(dueDate, timezoneFilter) : dueDate.toUtc();
+    final dueDateUTC = convertToUTC(dueDate, timezoneFilter!);
 
     if (fromDateUTC != null && dueDateUTC.isBefore(fromDateUTC)) return false;
 

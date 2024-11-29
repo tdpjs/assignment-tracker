@@ -243,6 +243,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         labelText: 'Enter filters (e.g., course:Math type:Exam)',
                         errorText: _errorMessage,
                       ),
+                      onFieldSubmitted: (value) => {
+                        _applyFilters()
+                      },
                     ),
                   ),
                   const SizedBox(width: 10),

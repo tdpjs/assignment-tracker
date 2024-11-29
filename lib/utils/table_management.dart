@@ -31,13 +31,19 @@ Future<bool> addAssignment({
           .map((s) => s.trim())
           .toList();
 
+      String dueTime = dueTimeController.text;
+      final timeParts = dueTime.split(RegExp(r'\s+'));
+      if (timeParts.length == 1 || !RegExp(r'^[A-Z]{2,4}$').hasMatch(timeParts.last)) {
+        dueTime = '$dueTime PST';
+      }
+
       await Supabase.instance.client.from('Assignments').insert({
         'user_id': userId,
         'Course': courseController.text,
         'Name': nameController.text,
         'Type': typeController.text,
         'Due Date': dueDateController.text,
-        'Due Time': dueTimeController.text,
+        'Due Time': dueTime,
         'Submission': submissionController.text,
         'Resources': resources,
       });
@@ -52,6 +58,7 @@ Future<bool> addAssignment({
   }
   return false;
 }
+
 
 /// Edits an assignment in the database.
 /// @param [context] the current BuildContext of the app
@@ -85,13 +92,19 @@ Future<bool> editAssignment({
           .map((s) => s.trim())
           .toList();
 
+      String dueTime = dueTimeController.text;
+      final timeParts = dueTime.split(RegExp(r'\s+'));
+      if (timeParts.length == 1 || !RegExp(r'^[A-Z]{2,4}$').hasMatch(timeParts.last)) {
+        dueTime = '$dueTime PST';
+      }
+
       await Supabase.instance.client
           .from('Assignments')
           .update({
         'Course': courseController.text,
         'Name': nameController.text,
         'Type': typeController.text,
-        'Due Date': dueDateController.text,
+        'Due Date': dueTime,
         'Due Time': dueTimeController.text,
         'Submission': submissionController.text,
         'Resources': resources,

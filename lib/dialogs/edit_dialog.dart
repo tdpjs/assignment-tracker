@@ -87,14 +87,14 @@ class EditDialog {
                   controller: dueTimeController,
                   decoration: const InputDecoration(
                     labelText: 'Due Time',
-                    hintText: 'HH:MM TZ',
+                    hintText: 'HH:MM (TZ)',
                   ),
                   validator: (value) {
                     final timeRegEx = RegExp(
-                      r'^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])\s?(AM|PM)?,?\s(IDLW|NST|HST|AKST|PST|MST|CST|EST|UTC|CET|EET|MSK|GST|PKT|BST|ICT|CST|JST|AEST|AEDT|NZST)$',
+                      r'^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])\s?(AM|PM)?,?\s?(IDLW|NST|HST|AKST|PST|MST|CST|EST|UTC|CET|EET|MSK|GST|PKT|BST|ICT|CST|JST|AEST|AEDT|NZST)?$',
                     );
                     return (value == null || !timeRegEx.hasMatch(value))
-                        ? 'Enter a valid time in HH:MM TZ format'
+                        ? 'Enter a valid time in HH:MM format, optionally with TZ'
                         : null;
                   },
                 ),
