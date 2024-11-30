@@ -41,20 +41,24 @@ class EditDialog {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
+                  key: const Key('courseField'),
                   controller: courseController,
                   decoration: const InputDecoration(labelText: 'Course'),
                 ),
                 TextFormField(
+                  key: const Key('nameField'),
                   controller: nameController,
                   decoration: const InputDecoration(labelText: 'Name'),
                   validator: (value) =>
                   value == null || value.isEmpty ? 'Name is required' : null,
                 ),
                 TextFormField(
+                  key: const Key('typeField'),
                   controller: typeController,
                   decoration: const InputDecoration(labelText: 'Type'),
                 ),
                 TextFormField(
+                  key: const Key('dueDateField'),
                   controller: dueDateController,
                   decoration: const InputDecoration(
                     labelText: 'Due Date',
@@ -84,6 +88,7 @@ class EditDialog {
                   },
                 ),
                 TextFormField(
+                  key: const Key('dueTimeField'),
                   controller: dueTimeController,
                   decoration: const InputDecoration(
                     labelText: 'Due Time',
@@ -99,6 +104,7 @@ class EditDialog {
                   },
                 ),
                 TextFormField(
+                  key: const Key('submissionField'),
                   controller: submissionController,
                   decoration: const InputDecoration(
                     labelText: 'Submission URL',
@@ -107,6 +113,7 @@ class EditDialog {
                   keyboardType: TextInputType.url,
                 ),
                 TextFormField(
+                  key: const Key('resourcesField'),
                   controller: resourcesController,
                   decoration: const InputDecoration(
                     labelText: 'Resources (comma-separated links)',
@@ -119,10 +126,12 @@ class EditDialog {
           ),
           actions: [
             TextButton(
+              key: const Key('editCancel'),
               onPressed: () => Navigator.of(context).pop(),
               child: const Text('Cancel'),
             ),
             ElevatedButton(
+              key: const Key('editButton'),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   await editAssignment(

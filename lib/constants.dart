@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 /// Takes a string and returns an AppBar with it as the title

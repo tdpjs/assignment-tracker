@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class AddDialog {
   static final _formKey = GlobalKey<FormState>();
 
-
   /// show the add assignment dialog
   static void showAddAssignmentDialog({
     required BuildContext context,

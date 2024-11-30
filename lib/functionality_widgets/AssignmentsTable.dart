@@ -63,6 +63,7 @@ class AssignmentsTable extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
+                    key: const Key("editIcon"),
                     onPressed: () => EditDialog.showEditAssignmentDialog(
                       context: context,
                       initializeData: initializeData,

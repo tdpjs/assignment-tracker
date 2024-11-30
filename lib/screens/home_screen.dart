@@ -265,6 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
             FloatingActionButton.extended(
+              key: const Key('add'),
               heroTag: "Add Task",
               onPressed: () => AddDialog.showAddAssignmentDialog(
                   context: context,
