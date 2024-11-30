@@ -1,3 +1,5 @@
+## Contributions of group members
+
 ### David: Email notifications automations
 - Sending emails on Sundays as a reminder to users
 - (See more in BUG.md #3)
