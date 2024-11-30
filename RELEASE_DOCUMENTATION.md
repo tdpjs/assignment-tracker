@@ -5,7 +5,7 @@
 
 ### Description:
 1. CONTRIBUTINS.md
-    Required documentation #1. Mention what task(s) each member is responsible for.
+    - Required documentation #1. Mention what task(s) each member is responsible for.
    
 2. UX_UI.md
     This is an extra documentation file. This file contains specific details of optimizing user experience and user interface (in a nutshell, design choices). 
