@@ -3,7 +3,7 @@
 2. UX_UI.md
 3. BUGS.md
 
-# Description:
+### Description:
 1. CONTRIBUTINS.md
     Required documentation #1. Mention what task(s) each member is responsible for.
    
