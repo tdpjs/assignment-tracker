@@ -1,6 +1,6 @@
 # Known bugs
 1. When "Show Overdue" is unchecked. Assignments due later on the same day doesn't get displayed when they should.
-  - svd
+    - svd
  
 2. Text is glitchy on mobile.
 
