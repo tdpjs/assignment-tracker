@@ -1,7 +1,7 @@
 ## Related markdown files:
-1. CONTRIBUTIONS.md
-2. UX_UI.md
-3. BUGS.md
+- ### CONTRIBUTIONS.md
+- ### UX_UI.md
+- ### BUGS.md
 
 ### Description:
 1. #### CONTRIBUTINS.md
