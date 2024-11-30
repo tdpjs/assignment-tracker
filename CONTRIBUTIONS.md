@@ -2,6 +2,7 @@
 
 ### David: Email notifications automations
 - Sending emails on Sundays as a reminder to users
+- Check `emailservice.txt`
 - (See more in BUG.md #3)
 
 ### Hankyul: Testing
