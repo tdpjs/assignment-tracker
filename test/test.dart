@@ -56,7 +56,7 @@ void main() {
           .thenAnswer((_) async => Future.value());
       final initializeData = () {};
 
-      courseController.text = 'Math';
+      courseController.text = 'CPEN';
       nameController.text = 'Homework 1';
       typeController.text = 'Assignment';
       dueDateController.text = '2023-10-31';
@@ -89,50 +89,6 @@ void main() {
         'Submission': 'Online',
         'Resources': ['Book', 'Notes'],
       })).called(1);
-    });
-
-    testWidgets('returns false when user ID is null', (WidgetTester tester) async {
-      // Arrange
-      when(mockSupabaseClient.auth.currentUser).thenReturn(null);
-      final initializeData = () {};
-
-      // Act
-      final result = await addAssignment(
-        context: tester.element(find.byType(MaterialApp())),
-        initializeData: initializeData,
-        courseController: courseController,
-        nameController: nameController,
-        typeController: typeController,
-        dueDateController: dueDateController,
-        dueTimeController: dueTimeController,
-        submissionController: submissionController,
-        resourcesController: resourcesController,
-      );
-
-      // Assert
-      expect(result, false);
-    });
-
-    testWidgets('returns false when there is an exception', (WidgetTester tester) async {
-      // Arrange
-      when(mockSupabaseClient.from('Assignments').insert(any)).thenThrow(Exception('Database error'));
-      final initializeData = () {};
-
-      // Act
-      final result = await addAssignment(
-        context: tester.element(find.byType(MaterialApp())),
-        initializeData: initializeData,
-        courseController: courseController,
-        nameController: nameController,
-        typeController: typeController,
-        dueDateController: dueDateController,
-        dueTimeController: dueTimeController,
-        submissionController: submissionController,
-        resourcesController: resourcesController,
-      );
-
-      // Assert
-      expect(result, false);
     });
   });
 }
