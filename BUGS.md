@@ -1,4 +1,4 @@
-# Known bugs
+## Known bugs
 1. ### Overdue assignments not filtered properly
     - When `Show Overdue` is unchecked, assignments due on the same day with a later time DO NOT get displayed when they should.
  
