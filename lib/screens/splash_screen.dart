@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: activeSession == null ? const AuthScreen() : const HomeScreen()),
+      body: Center(child: AuthScreen()),//child: activeSession == null ? const AuthScreen() : const HomeScreen()
     );
   }
 }

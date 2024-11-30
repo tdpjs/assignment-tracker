@@ -5,6 +5,7 @@ import 'package:integration_test/integration_test.dart';
 //import 'package:test/test.dart';
 import 'package:assignment_tracker/main.dart' as app;
 
+/**automation test**/
 void main() {
   group('testing',(){
     IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +15,16 @@ void main() {
       app.main();
 
       await tester.pumpAndSettle();
+
+
+
+      final emailField = find.byType(TextFormField).first;
+      final passwordField = find.byType(TextFormField).last;
+
+      //await tester.enterText(emailField, 'ohku1031@gmail.com');
+      //await tester.enterText(passwordField,'123123');
+
+
 
       final addAssignment = find.byKey(Key('add'));
       final courseField = find.byKey(Key('courseField'));
@@ -29,10 +40,10 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      await tester.enterText(courseField, "CPEN221");
+      await tester.enterText(courseField, "MATH221");
       await tester.enterText(nameField, "lab11");
       await tester.enterText(typeField, "lab");
-      await tester.enterText(dueDateField, "2024-12-24");
+      await tester.enterText(dueDateField, "2024-12-31");
       await tester.enterText(dueTimeField, "11:59 UTC");
       await tester.enterText(submissionField,'github');
       await tester.enterText(resourcesField, "123");
@@ -82,12 +93,38 @@ void main() {
 
     });
 
-     // testWidgets("test delete", (tester) async{
-     //   //app.main();
-     //
-     //
-     //
-     // });
+     testWidgets("test delete", (tester) async{
+        app.main();
+       final addAssignment = find.byKey(Key('add'));
+       final courseField = find.byKey(Key('courseField'));
+       final nameField = find.byKey(Key('nameField'));
+       final typeField = find.byKey(Key('typeField'));
+       final dueDateField = find.byKey(Key('dueDateField'));
+       final dueTimeField = find.byKey(Key('dueTimeField'));
+       final submissionField = find.byKey(Key('submissionField'));
+       final resourcesField = find.byKey(Key('resourcesField'));
+       final addButton = find.byKey(Key('addButton'));
+       await tester.pumpAndSettle();
+
+       await tester.tap(addAssignment);
+
+       await tester.pumpAndSettle();
+
+       await tester.enterText(courseField, "CPEN211");
+       await tester.enterText(nameField, "lab1");
+       await tester.enterText(typeField, "lab");
+       await tester.enterText(dueDateField, "2024-12-31");
+       await tester.enterText(dueTimeField, "11:59 PST");
+       await tester.enterText(submissionField,'github');
+       await tester.enterText(resourcesField, "123");
+
+       await tester.pumpAndSettle();
+
+       await tester.tap(addButton);
+
+     });
 
   });
+
 }
+
