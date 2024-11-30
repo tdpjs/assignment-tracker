@@ -48,7 +48,7 @@ DateTime convertToUTC(DateTime localTime, String timezone) {
     throw ArgumentError('Invalid timezone: $timezone');
   }
 
-  int offset = stringToIntoffsets[timezone]! as int;
+  int offset = (stringToIntoffsets[timezone]! as num).toInt();
 
   return localTime.add(Duration(hours: offset));
 }

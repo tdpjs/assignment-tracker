@@ -81,6 +81,7 @@ void main() {
       final deleteButton = find.byKey(Key('deletButton'));
 
       expect(deleteIcon, findsNothing);
+      await tester.pumpAndSettle();
       await tester.tap(deleteIcon);
 
       await tester.pumpAndSettle();
