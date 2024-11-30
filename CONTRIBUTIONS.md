@@ -1,16 +1,16 @@
-David: email notifications automations
+### David: email notifications automations
 
-Hankyul: Testing
+### Hankyul: Testing
 
-Dat: All rounder
+### Dat: All rounder
       - Framework
       - Sorting
       - Filtering
       - UI
 
-Anselm: UI
+### Anselm: UI
         - Overdue task button
         - Collecting user feedback (UI / UX improvement)
 
-Farbod: Dark theme
+### Farbod: Dark theme
 
