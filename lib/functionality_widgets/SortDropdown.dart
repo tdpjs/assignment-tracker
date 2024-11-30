@@ -19,38 +19,60 @@ class SortDropdown extends StatefulWidget {
 class _SortDropdownState extends State<SortDropdown> {
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return
+      Expanded(
+      child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const Text(
-          "Sort: ",
-          style: TextStyle(fontSize: 16, color: Colors.black),
-        ),
         const SizedBox(width: 8),
         SizedBox(
           width: 300, // Adjust dropdown width
           child: DropdownButton<String>(
             value: widget.sortController.text.isNotEmpty ? widget.sortController.text : null,
-            hint: const Text("Select", style: TextStyle(color: Colors.black)),
-            items: const [
-              DropdownMenuItem(
-                value: "due_date",
-                child: Text("Due Date (Ascending)", style: TextStyle(color: Colors.black)),
-              ),
-              DropdownMenuItem(
-                value: "due_date_descending",
-                child: Text("Due Date (Descending)", style: TextStyle(color: Colors.black)),
-              ),
-              DropdownMenuItem(
-                value: "order_added",
-                child: Text("Order Added (Ascending)", style: TextStyle(color: Colors.black)),
-              ),
-              DropdownMenuItem(
-                value: "order_added_descending",
-                child: Text("Order Added (Descending)", style: TextStyle(color: Colors.black)),
-              ),
-            ],
-            onChanged: (value) async {
+            hint: const Text("Sort", style: TextStyle(color: Colors.black)),
+              items: const [
+                DropdownMenuItem(
+                  value: "due_date",
+                  child: Row(
+                    children: [
+                      Icon(Icons.arrow_upward, color: Colors.black),  // Ascending arrow
+                      const SizedBox(width: 5),
+                      const Text("Due Date", style: TextStyle(color: Colors.black)),
+                    ],
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: "due_date_descending",
+                  child: Row(
+                    children: [
+                      Icon(Icons.arrow_downward, color: Colors.black),  // Descending arrow
+                      const SizedBox(width: 5),
+                      const Text("Due Date", style: TextStyle(color: Colors.black)),
+                    ],
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: "order_added",
+                  child: Row(
+                    children: [
+                      Icon(Icons.arrow_upward, color: Colors.black),  // Ascending arrow
+                      const SizedBox(width: 5),
+                      const Text("Order Added", style: TextStyle(color: Colors.black)),
+                    ],
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: "order_added_descending",
+                  child: Row(
+                    children: [
+                      Icon(Icons.arrow_downward, color: Colors.black),  // Descending arrow
+                      const SizedBox(width: 5),
+                      const Text("Order Added", style: TextStyle(color: Colors.black)),
+                    ],
+                  ),
+                ),
+              ],
+              onChanged: (value) async {
               if (value != null) {
                 setState(() {
                   widget.sortController.text = value;
@@ -61,6 +83,7 @@ class _SortDropdownState extends State<SortDropdown> {
           ),
         ),
       ],
+    )
     );
   }
 }

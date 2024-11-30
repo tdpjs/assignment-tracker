@@ -12,8 +12,10 @@ import 'screens/password_reset_screen.dart';
 void main() async {
   await dotenv.load(fileName: ".env");
   await Supabase.initialize(
-      url: dotenv.env['SUPABASE_URL']!,
-      anonKey: dotenv.env['SUPABASE_ANON_KEY']!);
+      // url: dotenv.env['SUPABASE_URL']!,
+      // anonKey: dotenv.env['SUPABASE_ANON_KEY']!);
+      url: "https://thtoocplqnmszmmvyikb.supabase.co",
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRodG9vY3BscW5tc3ptbXZ5aWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzEzOTE0ODMsImV4cCI6MjA0Njk2NzQ4M30.SCsJxXlihSp1V38iD90PTYZSWw-VUIBVesDLEhGAEXM");
   runApp(
     const MyApp(),
   );
