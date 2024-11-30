@@ -1,5 +1,5 @@
-# Related markdown files:
-1. CONTRIBUTINS.md
+## Related markdown files:
+1. CONTRIBUTIONS.md
 2. UX_UI.md
 3. BUGS.md
 
