@@ -21,10 +21,6 @@ void main() {
       final emailField = find.byType(TextFormField).first;
       final passwordField = find.byType(TextFormField).last;
 
-      //await tester.enterText(emailField, 'ohku1031@gmail.com');
-      //await tester.enterText(passwordField,'123123');
-
-
 
       final addAssignment = find.byKey(Key('add'));
       final courseField = find.byKey(Key('courseField'));
