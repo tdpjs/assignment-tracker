@@ -168,7 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: userData.isEmpty
             ? Column(
           mainAxisAlignment: MainAxisAlignment.center,
