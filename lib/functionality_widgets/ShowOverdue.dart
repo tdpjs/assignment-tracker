@@ -42,7 +42,7 @@ class ShowOverdueCheckboxState extends State<ShowOverdueCheckbox> {
           value: showOverdue,
           onChanged: _onCheckboxChanged,
         ),
-        const Text('Show Overdue Tasks'),
+        const Text('Show Overdue'),
       ],
     );
   }
