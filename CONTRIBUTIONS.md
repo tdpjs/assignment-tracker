@@ -5,8 +5,8 @@
 - (See more in BUG.md #3)
 
 ### Hankyul: Testing
-- Testing all functions. 
-- Testing is a big chunk of work so 
+- Testing all functions.
+- Testing is a big chunk of work so every group member is helping with testing. Hankyul is the lead in testing.
 
 ### Dat: All rounder
 - Framework
