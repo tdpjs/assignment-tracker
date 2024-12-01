@@ -4,11 +4,11 @@ This file is for design choices, intuition of using the web app, and how use is 
 
 --- 
 
-1. Horizontal Scrolling
+1. #### Horizontal Scrolling
    skdjnckdjs,nfb,nzv ,
    s,cn
    dslj
 
-3. Vertical Scrolling
+3. #### Vertical Scrolling
     sdvsdv
 
