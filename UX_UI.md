@@ -20,6 +20,17 @@ This file is for design choices, intuition of using the web app, and how use is 
 4. #### Adding Overdue task
    A potential problem that happened during our testing phase is that there was a confusion if one can add an overdue task or not. What happened exactly was that an overdue assignment was added with the `Show Overdue` button unselected. This led to the overdue task NOT being shown on the table. This is SUPPOSED to happen, but there was no notification indicating that this overdue assignment is successfully added because of the setting of not showing `Show Overdue` assignments.
 
-   A simple solution to this confusion is not allowing users to add overdue assignments. We have tried to implement this, but it is not working. Rather than a bug, we consider it as a design choice, as this is just one of the many solution to resolve this problem.
+   A simple solution to this confusion is not allowing users to add overdue assignments. We have tried to implement this, but it is not working. Rather than a bug, we consider it as a design choice, as this is just one of the many solutions to resolve this problem.
 
-5. #### 
+5. #### Sorting
+   There are only two sorting options (ascending or descending do not count as two) currently. Because of time constrain, we could not add more options. Again, our "design langauge" is to keep everything simplistic. If we add too many sorting ooptions, we would need a new way to display those sorting options. One good example like the sorting options in `file explorer`. By clicking the field, the user is sorting by that field (ascending or descending).
+
+6. #### Filtering
+   The format for filtering is a bit unusual because users need to type the field they want to use to filter, then the actual input. We kept the format of filtering by adding a placeholder text, which illustrates an exmaple of filtering. Something worth to point out is that we encounter a lot more problems than we anticipated or the filter section.
+   One problem is that the filter is not executed by clicking `enter` button on the keyboard. It was only executable by clicking the `filter` button. We consider this as a bigger concern and we prioritize resolving this bug.
+   Another resolved bug is that the filter will not work properly when the variable has space. We do not want to limit users on how to input stuff, so we allow sapce to be entered. 
+
+8. #### `Find` function not applicable
+   As mentioned in `BUGS.md`, currently you cannot find an assignment with the find function by `cltr + F` or `cmd + F`. This is something we would like to achieve and it's not intended to be this way. Hence, we put it in `BUGS.md`.
+   
+9. #### <p style="color: red;">Error message</p>
