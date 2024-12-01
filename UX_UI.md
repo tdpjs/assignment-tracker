@@ -34,3 +34,4 @@ This file is for design choices, intuition of using the web app, and how use is 
    As mentioned in `BUGS.md`, currently you cannot find an assignment with the find function by `cltr + F` or `cmd + F`. This is something we would like to achieve and it's not intended to be this way. Hence, we put it in `BUGS.md`.
    
 9. #### <p style="color: red;">Error message</p>
+   Whenever the input is not matching desire format, we would want to display a red (if not bold) text, indicating this is wrong. It has already been implemented in the `add assingment` window. We also want to implement this feature in filter, but did not get to because of time constrain.
