@@ -4,4 +4,9 @@ This file is for design choices, intuition of using the web app, and how use is 
 
 --- 
 
-1. 
+1. Horizontal Scrolling
+    ,kdjs,nfb
+
+2. Vertical Scrolling
+    sdvsdv
+
