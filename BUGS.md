@@ -13,4 +13,7 @@
 
 4. ### Description of buttons
     - Usually, when you hover over a button, there will be a short description of what that button does. For example, the `like button` on YouTube. If you have not liked the video, and you hover over the `like` button by a cursor, a small rectangular box with text `like` will pop up after you hover the button for a brief second. That is what we want to achieve.
-    - We put this under `BUGS.md` because we did not have enough time to implement this feature, but this feature is a small details that would make the app more comprehensive. 
+    - We put this under `BUGS.md` because we did not have enough time to implement this feature, but this feature is a small details that would make the app more comprehensive.
+  
+5. ### `Find` web function not application on assignment table
+    - If there is an assignment which the course is "MATH 220", if the user enter "MATH" using `cltr + F` or `cmd + F`, they are UNALBE to carry the search. 
