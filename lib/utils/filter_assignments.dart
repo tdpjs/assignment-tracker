@@ -1,11 +1,3 @@
-import 'package:flutter/material.dart';
-
-import '../dialogs/delete_dialog.dart';
-import '../dialogs/edit_dialog.dart';
-import '../build_cells/text_cell.dart';
-import '../build_cells/resources_cell.dart';
-import '../build_cells/link_cell.dart';
-import '../build_cells/time_cell.dart';
 import '../utils/time_parsing.dart';
 
 /// Filters user's tasks based on provided filters

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class AddDialog {
   static final _formKey = GlobalKey<FormState>();
 
-
   /// show the add assignment dialog
   static void showAddAssignmentDialog({
     required BuildContext context,
@@ -41,18 +40,22 @@ class AddDialog {
                 TextFormField(
                   controller: courseController,
                   decoration: const InputDecoration(labelText: 'Course'),
+                  key: const Key("courseField")
                 ),
                 TextFormField(
+                  key: const Key('nameField'),
                   controller: nameController,
                   decoration: const InputDecoration(labelText: 'Name'),
                   validator: (value) =>
                   value == null || value.isEmpty ? 'Name is required' : null,
                 ),
                 TextFormField(
+                  key: const Key('typeField'),
                   controller: typeController,
                   decoration: const InputDecoration(labelText: 'Type'),
                 ),
                 TextFormField(
+                  key: const Key('dueDateField'),
                   controller: dueDateController,
                   decoration: const InputDecoration(
                     labelText: 'Due Date',
@@ -82,6 +85,7 @@ class AddDialog {
                   },
                 ),
                 TextFormField(
+                  key: const Key('dueTimeField'),
                   controller: dueTimeController,
                   decoration: const InputDecoration(
                     labelText: 'Due Time',
@@ -97,6 +101,7 @@ class AddDialog {
                   },
                 ),
                 TextFormField(
+                  key: const Key('submissionField'),
                   controller: submissionController,
                   decoration: const InputDecoration(
                     labelText: 'Submission',
@@ -105,6 +110,7 @@ class AddDialog {
                   keyboardType: TextInputType.url,
                 ),
                 TextFormField(
+                  key: const Key('resourcesField'),
                   controller: resourcesController,
                   decoration: const InputDecoration(
                     labelText: 'Resources (comma-separated links)',
@@ -121,6 +127,7 @@ class AddDialog {
               child: const Text('Cancel'),
             ),
             ElevatedButton(
+              key: const Key('addButton'),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   await addAssignment(

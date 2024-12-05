@@ -1,0 +1,86 @@
+emailservice.js file 
+
+const functions = require('firebase-functions');
+const nodemailer = require('nodemailer');
+const { createClient } = require('@supabase/supabase-js');
+
+// Set up email transport using Gmail
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'assignmentbot221@gmail.com',   // Replace with your email
+    pass: '33ejRDHdVajekCY',    // Use an app password for better security
+  },
+});
+
+// Supabase configuration
+const supabaseUrl = 'https://thtoocplqnmszmmvyikb.supabase.co/'; // Replace with your Supabase URL
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRodG9vY3BscW5tc3ptbXZ5aWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzEzOTE0ODMsImV4cCI6MjA0Njk2NzQ4M30.SCsJxXlihSp1V38iD90PTYZSWw-VUIBVesDLEhGAEXM'; // Replace with your Supabase API key
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Cloud Function to send email with assignments due this week
+exports.sendWeeklyAssignmentsEmail = functions.pubsub.schedule('every sunday 09:00').onRun(async (context) => {
+  // Get the current date and the start of the week (Monday)
+  const currentDate = new Date();
+  const startOfWeek = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 1)); // Monday
+
+  // Get the end of the week (Sunday)
+  const endOfWeek = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 7)); // Sunday
+
+  // Query Supabase for assignments due this week
+  const { data, error } = await supabase
+    .from('assignments') // Replace with your table name
+    .select('assignment_name, due_date') // Adjust based on your table columns
+    .gte('due_date', startOfWeek.toISOString()) // Filter by start of the week
+    .lte('due_date', endOfWeek.toISOString()); // Filter by end of the week
+
+  if (error) {
+    console.error('Error fetching assignments:', error);
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    console.log('No assignments due this week');
+    return;
+  }
+
+  // Prepare email content with assignment names
+  let assignmentNames = 'Assignments due this week:\n\n';
+  data.forEach((assignment) => {
+    assignmentNames += `- ${assignment.assignment_name} (Due: ${new Date(assignment.due_date).toLocaleString()})\n`;
+  });
+
+  // Query Supabase to get the emails of all users (or a specific user if needed)
+  const { userData, userError } = await supabase
+    .from('users')  // Replace with your actual user table name
+    .select('email');  // Adjust to select the appropriate column for emails
+
+  if (userError) {
+    console.error('Error fetching user emails:', userError);
+    return;
+  }
+
+  if (!userData || userData.length === 0) {
+    console.log('No users found');
+    return;
+  }
+
+  // Prepare a list of emails
+  const userEmails = userData.map(user => user.email);
+
+  // Send email to all users
+  const mailOptions = {
+    from: 'assignmentbot221@gmail.com',
+    to: userEmails.join(','),  // Join multiple emails with a comma
+    subject: 'Assignments Due This Week',
+    text: assignmentNames,
+  };
+
+  try {
+    // Send the email
+    await transporter.sendMail(mailOptions);
+    console.log('Weekly assignments email sent successfully');
+  } catch (emailError) {
+    console.error('Error sending email:', emailError);
+  }
+});

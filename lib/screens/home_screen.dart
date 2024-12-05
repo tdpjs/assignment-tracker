@@ -199,6 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
             FloatingActionButton.extended(
+              key: const Key('add'),
               heroTag: "Add Task",
               onPressed: () => AddDialog.showAddAssignmentDialog(
                 context: context,
@@ -259,22 +260,23 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 50),
             SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: _isLoading ? const CircularProgressIndicator() : _filteredDataTable
-               ),
+                scrollDirection: Axis.horizontal,
+                child: _isLoading ? const CircularProgressIndicator() : _filteredDataTable
+            ),
             const SizedBox(height: 20),
             FloatingActionButton.extended(
+              key: const Key('add'),
               heroTag: "Add Task",
               onPressed: () => AddDialog.showAddAssignmentDialog(
-                context: context,
-                initializeData: _initializeData,
-                courseController: courseController,
-                nameController: nameController,
-                typeController: typeController,
-                dueDateController: dueDateController,
-                dueTimeController: dueTimeController,
-                submissionController: submissionController,
-                resourcesController: resourcesController
+                  context: context,
+                  initializeData: _initializeData,
+                  courseController: courseController,
+                  nameController: nameController,
+                  typeController: typeController,
+                  dueDateController: dueDateController,
+                  dueTimeController: dueTimeController,
+                  submissionController: submissionController,
+                  resourcesController: resourcesController
               ),
               icon: const Icon(Icons.add),
               label: const Text("Add Assignment"),
@@ -293,8 +295,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-
-
-

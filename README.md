@@ -51,12 +51,12 @@ Select in the sort drop-down a criteria to sort by: Due Date Ascending, Due Date
 By default, all assignments are displayed. You may enter filters to only display assignments of matching criteria.
 The following filters are available:
 
-course:<arg>, <arg> can be any string, matches all assignments whose "Course" column partially matches <arg>
-name:<arg>, <arg> can be any string, matches all assignments whose "Name" column partially matches <arg>
-type:<arg>, <arg> can be any string, matches all assignments whose "Type" column partially matches <arg>
-from:<arg>, <arg> must be in the format YYYY-MM-DD, YYYY > 0, MM > 0, DD > 0. Overflow dates and months carry over to the next value. (e.g. 2024-11-31 is equivalent to 2024-12-01)
-to:<arg>, <arg> must be in the format YYYY-MM-DD, YYYY > 0, MM > 0, DD > 0. Overflow dates and months carry over to the next value. (e.g. 2024-11-31 is equivalent to 2024-12-01)
-timezone:<arg>, <arg> must be one of the timezone abbreviations shown above.
+- course:<arg>, <arg> can be any string, matches all assignments whose "Course" column partially matches <arg>
+- name:<arg>, <arg> can be any string, matches all assignments whose "Name" column partially matches <arg>
+- type:<arg>, <arg> can be any string, matches all assignments whose "Type" column partially matches <arg>
+- from:<arg>, <arg> must be in the format YYYY-MM-DD, YYYY > 0, MM > 0, DD > 0. Overflow dates and months carry over to the next value. (e.g. 2024-11-31 is equivalent to 2024-12-01)
+- to:<arg>, <arg> must be in the format YYYY-MM-DD, YYYY > 0, MM > 0, DD > 0. Overflow dates and months carry over to the next value. (e.g. 2024-11-31 is equivalent to 2024-12-01)
+- timezone:<arg>, <arg> must be one of the timezone abbreviations shown above.
 
 A few rules on filters:
 - When "from:<arg>" and "to:<arg>" is used, timezone is defaulted to PST, if you wish to set a different timezone for the filter, use the "timezone:<arg>" filter.
