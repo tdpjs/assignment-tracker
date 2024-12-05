@@ -33,8 +33,8 @@ class AuthScreen extends StatelessWidget {
                 onSignInComplete: (res) => Navigator.pushNamed(context, '/home'),
                 onSignUpComplete: (res) => Navigator.pushNamed(context, '/home'),
                 onError: (error) => SnackBar(content: Text(error.toString())),
-                resetPasswordRedirectTo: "http://localhost:3000/#/passwordreset",
-                // resetPasswordRedirectTo: "https://assignment-tracker-tdpjs.web.app/",
+                // resetPasswordRedirectTo: "http://localhost:3000/#/passwordreset",
+                resetPasswordRedirectTo: "https://assignment-tracker-tdpjs.web.app/",
               ),
               SupaSocialsAuth(
                 socialProviders: const [
@@ -42,8 +42,8 @@ class AuthScreen extends StatelessWidget {
                   OAuthProvider.github,
                   OAuthProvider.discord
                 ],
-                redirectUrl: "http://localhost:3000/#/home",
-                // redirectUrl: "https://assignment-tracker-tdpjs.web.app/",
+                // redirectUrl: "http://localhost:3000/#/home",
+                redirectUrl: "https://assignment-tracker-tdpjs.web.app/",
                 // kIsWeb ? "https://thtoocplqnmszmmvyikb.supabase.co/auth/v1/callback"
                 //         : "io.supabase.assignmenttracker://login-callback/",
                 onSuccess: (session) => Navigator.pushReplacementNamed(context, '/home'),

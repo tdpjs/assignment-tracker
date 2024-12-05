@@ -1,3 +1,4 @@
+import 'package:assignment_tracker/utils/time_parsing.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -104,8 +105,8 @@ Future<bool> editAssignment({
         'Course': courseController.text,
         'Name': nameController.text,
         'Type': typeController.text,
-        'Due Date': dueTime,
-        'Due Time': dueTimeController.text,
+        'Due Date': dueDateController.text,
+        'Due Time': dueTime,
         'Submission': submissionController.text,
         'Resources': resources,
       }).eq('id', data['id']);
