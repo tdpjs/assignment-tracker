@@ -19,8 +19,8 @@
     
 7. Suggestion: Currently under the `What can I cook?` section there is only, at any given time, 4 recipes displayed, and there is no way to view more recipes/other recipes. I’d assume this is not the intended behaviour. As stated in an earlier point, a way to access every single recipe this app has would in turn resolve this issue as well (well somewhat, as then the user still have to figure out if they have all the ingredients to cook a certain thing). Alternatively, without needing to expose the entire list of recipes to the user, the app could show only every recipes that are possible using the ingredients the user currently have added. This could simply be another menu that opens when clicking a `See All` button under the `What can I cook?`section
     
-8. ### Search function in full list
+#### 8. Search function in full list
   As the number of ingredient increases, it is hard to keep track what ingredients I have. So I probobly better have a search bar to search for the ingredients
     
-9. #### Font issue on group member computer
+#### 9. Font issue on group member computer
 It is not a big issue, even though the window size is set, “Your Ingredient” in the item table is not showing completely i.e “Your Ingredie…”, and there is free space beside it. I feel like if the window size is fixed, then it should show “Your Ingredient” completely
