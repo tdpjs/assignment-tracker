@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import '../dialogs/show_cell_dialog.dart';
-import 'link_cell.dart';
-
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../utils/checkUrl.dart';
 
 class ResourcesCell extends DataCell {
   ResourcesCell({
@@ -34,7 +32,7 @@ class ResourcesCell extends DataCell {
                 .map<Widget>(
                   (resource) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 2.0),
-                child: Uri.tryParse(resource)?.hasAbsolutePath ?? false
+                child: isValidUrl(resource)
                     ? RichText(
                   text: TextSpan(
                     text: resource,
