@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:assignment_tracker/dialogs/show_cell_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../utils/checkUrl.dart';
+import '../utils/check_url.dart';
 
 class LinkCell extends DataCell {
   LinkCell({
