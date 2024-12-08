@@ -14,4 +14,9 @@ This could prove detrimental to users as they may miss assignments that are not 
 ### 3. Filters not matching all cases
 **Justification**: Prior to the issue being discovered, the filter feature was case-sensitive. Although this isn't entirely dysfunctional, it did not make for a very good user experience. As such, we shall make it case-insensitive after the more important issues are resolved. 
 
-### 4. 
+### 4. Non-valid links in submission and resources cells displayed as valid links
+**Justification**: This is lower on the list because it doesn't affect the core functionalities of the app. It is a small UI issue. However it is quite simple to resolve so it will be worked on after the other issues have been resolved.
+
+### 5. The UI is not responsive to different screen sizes
+
+**Justification**: Making the UI responsive to different screen sizes is a task that is tedious and takes significant time. Given that we do not have the time, this issue will not be fixed and thus is lowest on the priority list. 
