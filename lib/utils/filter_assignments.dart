@@ -17,13 +17,13 @@ List<Map<String, dynamic>> filterData({
     final filterSegments = filters.split(' ');
     for (var segment in filterSegments) {
       if (segment.startsWith('course:') && courseFilter == null) {
-        courseFilter = segment.split(':')[1];
+        courseFilter = segment.split(':')[1].toLowerCase();
       } else if (segment.startsWith('name:') && nameFilter == null) {
-        nameFilter = segment.split(':')[1];
+        nameFilter = segment.split(':')[1].toLowerCase();
       } else if (segment.startsWith('type:') && typeFilter == null) {
-        typeFilter = segment.split(':')[1];
+        typeFilter = segment.split(':')[1].toLowerCase();
       } else if (segment.startsWith('timezone:') && timezoneFilter == null) {
-        timezoneFilter = segment.split(':')[1];
+        timezoneFilter = segment.split(':')[1].toUpperCase();
       } else if (segment.startsWith('from:') && fromDate == null) {
         try {
           fromDate = DateTime.parse(segment.split(':')[1]);
@@ -47,16 +47,22 @@ List<Map<String, dynamic>> filterData({
   final toDateUTC = toDate != null ? convertToUTC(toDate, timezoneFilter) : null;
 
   final currentUTC = DateTime.now().toUtc();
+  print(currentUTC);
 
   return currentData.where((data) {
-    if (courseFilter != null && !data['Course'].contains(courseFilter)) return false;
+    if (courseFilter != null &&
+        !data['Course'].toString().toLowerCase().contains(courseFilter)) return false;
 
-    if (nameFilter != null && !data['Name'].contains(nameFilter)) return false;
+    if (nameFilter != null &&
+        !data['Name'].toString().toLowerCase().contains(nameFilter)) return false;
 
-    if (typeFilter != null && !data['Type'].contains(typeFilter)) return false;
+    if (typeFilter != null &&
+        !data['Type'].toString().toLowerCase().contains(typeFilter)) return false;
 
-    final dueDate = DateTime.parse(data['Due Date']);
-    final dueDateUTC = convertToUTC(dueDate, timezoneFilter!);
+    final dueDate = data['Due Date'];
+    final dueTime = data['Due Time'];
+    final String dueDateTime = "$dueDate $dueTime";
+    final dueDateUTC = DateTime.parse(dueDateTime);
 
     if (fromDateUTC != null && dueDateUTC.isBefore(fromDateUTC)) return false;
 
@@ -67,5 +73,6 @@ List<Map<String, dynamic>> filterData({
     return true;
   }).toList();
 }
+
 
 

@@ -29,6 +29,26 @@ String convertToTimeZoneFormat(String input) {
   return '$formattedTime, $timezoneAbbreviation';
 }
 
+/// Converts from HH:MM TZ to HH:MM:SS[+-]offset
+/// @param [input] time string in the format HH:MM TZ
+/// @return the time string formatted or 'Invalid input format' if the input is not correct
+String convertToOffsetFormat(String input) {
+  var regex = RegExp(r'^(\d{2}):(\d{2}),\s*(\w+)$');
+  var match = regex.firstMatch(input);
+
+  if (match == null) {
+    return 'Invalid input format';
+  }
+
+  String hour = match.group(1)!;
+  String minute = match.group(2)!;
+  String timezone = match.group(3)!.toUpperCase();
+
+  String? offset = stringToIntoffsets[timezone].toString();
+
+  return '$hour:$minute:00$offset';
+}
+
 /// Fetch the timezone abbreviation corresponding to the given offset from UTC
 /// @param [offset] the offset to use
 /// @return the corresponding timezone abbreviation if there exist a mapping from the given offset
@@ -40,7 +60,7 @@ String getTimezoneAbbreviation(String offset) {
 /// Converts a local time to its equivalent in UTC
 /// @param [localTime] the localTime to be converted
 /// @param [timezone] the timezone of the localTime
-/// @throws ArgumentError if there isn't a mapping for the provided timezone
+/// @throws [ArgumentError] if there isn't a mapping for the provided timezone
 /// @returns the time equivalence of localTime in UTC
 DateTime convertToUTC(DateTime localTime, String timezone) {
 
@@ -52,3 +72,4 @@ DateTime convertToUTC(DateTime localTime, String timezone) {
 
   return localTime.add(Duration(hours: offset));
 }
+

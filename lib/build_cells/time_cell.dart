@@ -9,8 +9,8 @@ class TimeCell extends DataCell {
     required String name,
   }) : super(
       GestureDetector(
-        onLongPress: () => showCellDialog(context, name, convertToTimeZoneFormat(time)),
-        onDoubleTap: () => showCellDialog(context, name, convertToTimeZoneFormat(time)),
+        onLongPress: () => showCellDialog(context, name, time),
+        onDoubleTap: () => showCellDialog(context, name, time),
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 300),
           child: Text(

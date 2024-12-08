@@ -7,7 +7,7 @@ AppBar appBar(String title) => AppBar(
 );
 
 
-const timezoneOffsets = {
+const Map<String, String> timezoneOffsets = {
   '-12': 'IDLW',
   '-11': 'NST',
   '-10': 'HST',

@@ -46,7 +46,7 @@ void showCellDialog(BuildContext context, String column, String content) {
       builder: (context) => AlertDialog(
         title: Text(column),
         content: SingleChildScrollView(
-          child: Text(content),
+          child: SelectableText(urlString),
         ),
         actions: [
           TextButton(
